@@ -5,7 +5,7 @@
 
 ### [Web体验1](http://vip.mrwoods.top/)
 
-### [Web体验1](https://vipsrv.ltzy.top/)
+### [Web体验2](https://vipsrv.ltzy.top/)
 
 ### [浏览器插件下载](http://vip.mrwoods.top/crx/download.php)
 
