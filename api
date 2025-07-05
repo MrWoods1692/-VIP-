@@ -1,71 +1,31 @@
-// ================= 这些是视频解析接口，自行使用，收集自互联网。
+# VIP影视解析接口文档
 
+## 接口概述
+VIP影视解析接口提供付费影视内容的解析服务，支持将各大视频平台的VIP视频链接转换为可播放资源。
 
-[
-  // ================= 通用解析接口 =================
-  { "name": "普通接口", "url": "https://jx.playerjy.com/?url=" },
-  { "name": "高速接口", "url": "http://jiexi44.qmbo.cn/jiexi/?url=" },
-  { "name": "超清接口", "url": "https://z1.m1907.top/?jx=" },
-  { "name": "常用接口", "url": "https://yemu.xyz/?url=" },
-  { "name": "海外接口", "url": "https://jx.77flv.cc/?url=" },
-  { "name": "VIP解析1", "url": "https://api.52kdy.cn/?url=" },
-  { "name": "蓝光接口", "url": "https://jx.iztyy.com/svip/?url=" },
-  { "name": "聚合解析", "url": "https://jx.m3u8.tv/jiexi/?url=" },
-  { "name": "无广告接口", "url": "https://jx.ckplayer.vip/jx/?url=" },
-  { "name": "万能解析", "url": "https://jx.playerjtr.com/?url=" },
-  { "name": "备用解析1", "url": "https://jx.bozrc.com:4433/player/?url=" },
-  { "name": "备用解析2", "url": "https://jx.mmkv.cn/tv.php?url=" },
-  { "name": "4K专用", "url": "https://jx.4kyy.top/?url=" },
-  { "name": "移动优化", "url": "https://m3u8.cqfenfa.com/jx/?url=" },
+当前路线: 普通路线 VIP影视解析服务
 
+## 接口基本信息
+- **接口地址**: https://api.svip10.top/
+- **请求方式**: GET
+- **返回格式**: HTML
+- **频率限制**:
+  - 默认QPS: 20次/分钟
+  - Token QPS: 10000次/分钟
 
-  // ================= 抖音/TikTok专用 =================
-  { "name": "抖音元数据解析", "url": "https://api.pearktrue.cn/api/video/douyin/?url=" },
-  { "name": "Ceacer抖音去水印", "url": "https://douyin.ceacer.cn/?url=" },
-  { "name": "Vnil抖音批量", "url": "https://api.vnil.cn/api/customparse/getList?appkey=YOUR_KEY&url=" },
+## 请求参数说明
+| 参数名 | 是否必填 | 类型 | 说明 |
+|--------|----------|------|------|
+| id     | 是       | string | 路线ID |
+| url    | 是       | string | 解析目标网址 |
 
+## 请求示例
+```
+https://api.svip10.top/?id=2&url=https://m.v.qq.com/x/m/play?cid=mzc00200xyp87bp&vid=f4101ggd7xu
+```
 
-  // ================= 多平台万能解析 =================
-  { "name": "Pear万能解析", "url": "https://api.pearktrue.cn/api/video/api.php?url=" },
-  { "name": "Vnil无水印解析", "url": "https://api.vnil.cn/api/parse?url=" },
-  { "name": "iCodeQ聚合解析", "url": "https://api.icodeq.com/api/wechat_video_public?wxv_" },
-
-
-  // ================= B站专用 =================
-  { "name": "B站解析", "url": "https://jx.xyflv.cc/?url=" },
-  { "name": "B站直链提取", "url": "https://video-direct-link.vercel.app/bili.mp4?aid={aid}&bvid={bvid}&cid={cid}" },
-  { "name": "B站半自动解析", "url": "https://icodeq-bpi.vercel.app/api/parwix?url=" },
-
-
-  // ================= 平台专用接口 =================
-  { "name": "芒果专用", "url": "https://jx.yangtu.top/?url=" },
-  { "name": "腾讯解析", "url": "https://jx.ivito.cn/?url=" },
-  { "name": "爱奇艺专线", "url": "https://jx.aidouer.net/?url=" },
-  { "name": "微信视频直链", "url": "https://api.icodeq.com/api/wechat_video_public?wxv_" },
-  { "name": "微博307协议", "url": "https://api.icodeq.com/api/weibo_307_video?uid={uid}&cursor={cursor}&hd={hd}" },
-  { "name": "网易MV直链", "url": "https://163.icodeq.com/?vid=" },
-  { "name": "网易MV逆向", "url": "https://api.icodeq.com/api/get_163_mv_vercel?vid=" },
-  { "name": "YouTube专用", "url": "https://yt.icodeq.com/dl?url=" },
-
-
-  // ================= 海外加速 =================
-  { "name": "海外加速", "url": "https://jx.jsonplayer.com/player/?url=" },
-  { "name": "TikTok国际版", "url": "https://api.intl.icodeq.com/tiktok?url=" },
-  { "name": "Twitter视频解析", "url": "https://tw.icodeq.com/video?tweet_url=" },
-
-
-
-  // ================= 备用接口 =================
-  { "name": "解析备用01", "url": "https://jx.playerjy.cn/jx2/?url=" },
-  { "name": "解析备用02", "url": "https://parse.video/api/?url=" },
-  { "name": "解析备用03", "url": "https://vip.jxplayer.top/?url=" },
-  { "name": "解析备用04", "url": "http://45.136.28.100:88/jiexi/?url=" },
-  { "name": "解析备用05", "url": "https://jx.ergan.top/?url=" },
-
-
-  // ================= 特殊场景接口 =================
-  { "name": "直播流解析", "url": "https://live.icodeq.com/m3u8?url=" },
-  { "name": "VR视频专用", "url": "https://vr.parse.video/?equirect=" },
-  { "name": "8K超高清", "url": "https://8k.video/api/parse?token=YOUR_TOKEN&url=" }
-
-]
+## 返回结果示例
+```html
+<!-- 视频播放页面 -->
+视频播放
+```
