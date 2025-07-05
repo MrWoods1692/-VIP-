@@ -32,7 +32,7 @@ https://api.svip10.top/?id=2&url=https://m.v.qq.com/x/m/play?cid=mzc00200xyp87bp
 ```
 ## 请求示例2
 ```
-https://api.svip10.top/?id=2&url=https%3A%2F%2Fm.v.qq.com%2Fx%2Fm%2Fplay%3Fcid%3Dmzc00200xyp87bp%26amp%3Bamp%3Bvid%3Df4101ggd7xu&token=真实Token
+https://api.svip10.top/?id=2&url=https://m.v.qq.com/x/m/play?cid=mzc00200xyp87bp&vid=f4101ggd7xu&token=(真实Token)
 ```
 
 ## 返回结果示例2
