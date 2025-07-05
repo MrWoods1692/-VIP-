@@ -11,7 +11,9 @@
 
 ### [论坛](https://bbs.mrwoods.ltzy.top/)
 
-### [API接口](https://github.com/MrWoods1692/-VIP-/blob/main/api.md)
+### [API接口文档1](https://github.com/MrWoods1692/-VIP-/blob/main/api.md)
+
+### [API接口文档2](https://wd.mrwoods.ltzy.top/)
 
 ## 项目预览图
 ![VIP影视解析](https://pic4.zhimg.com/v2-0916f1ec1004312cdc0a088b0bc8e3d7_r.jpg)
