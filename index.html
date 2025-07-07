@@ -1,5 +1,6 @@
 <!---作者：陈森林--->
-<!---
+<!---合作：蓝天工作室
+<!-----
 
 ██████╗ ██╗██████╗     ██╗   ██╗██╗███████╗ ██████╗ ███████╗
 ██╔══██╗██║██╔══██╗    ██║   ██║██║██╔════╝██╔═══██╗██╔════╝
@@ -14,21 +15,14 @@
      ██║     ██║  ██║╚██████╔╝██║  ██║
      ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝
      
---->
+----->
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIP影视解析</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('https://vip.mrwoods.top/count.php')
-                .then(response => response.text())
-                .then(data => console.log('更新成功'))
-                .catch(error => console.error('服务器请求失败:', error));
-        });
-    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -46,9 +40,133 @@
             min-width: 320px;
             background: linear-gradient(135deg, #0c1120 0%, #1a243b 100%);
             color: #e2e8f0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif; /* 添加中文字体 */
             overflow-x: hidden;
         }
+        
+        /* 玻璃态设计 */
+        .glass {
+            background: rgba(21, 30, 51, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 动态视觉元素 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #3b82f6, #6366f1, #8b5cf6, #ec4899);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        /* 苹果风格元素 */
+        .apple-card {
+            border-radius: 18px;
+            overflow: hidden;
+            transform: translateZ(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .apple-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* 交互元素 */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+        
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .btn-glow:hover::after {
+            opacity: 1;
+        }
+        
+        .btn-glow:hover {
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* 琉璃态效果 */
+        .crystal-btn {
+            background: linear-gradient(45deg, rgba(99, 102, 241, 0.7), rgba(59, 130, 246, 0.7));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .crystal-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+        
+        .crystal-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* 美化滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #6366f1, #3b82f6);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #818cf8, #60a5fa);
+        }
+        
+        /* 其他样式优化 */
         .modal-center {
             position: fixed;
             top: 50%;
@@ -57,42 +175,20 @@
             animation: modalIn 0.3s ease-out;
             z-index: 100;
         }
+        
         @keyframes modalIn {
             from { opacity: 0; transform: translate(-50%, -45%); }
             to { opacity: 1; transform: translate(-50%, -50%); }
         }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .iframe-sandbox {
-            sandbox: allow-forms allow-scripts allow-same-origin;
-        }
-        .glow-card {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-            transition: all 0.3s ease;
-        }
-        .glow-card:hover {
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
-        }
+        
         .video-container {
             position: relative;
             overflow: hidden;
-            border-radius: 16px;
+            border-radius: 20px;
             background: linear-gradient(145deg, #1a243b, #0c1120);
             border: 1px solid rgba(99, 102, 241, 0.3);
         }
-        .video-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #3b82f6, #6366f1);
-            border-radius: 4px 4px 0 0;
-        }
+        
         .security-badge {
             position: absolute;
             top: 16px;
@@ -108,35 +204,21 @@
             align-items: center;
             gap: 6px;
         }
-        .security-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: #22c55e;
-            border-radius: 50%;
-            display: block;
-        }
+        
         .input-glow:focus {
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
         }
-        .btn-glow {
-            position: relative;
-            overflow: hidden;
+        
+        .api-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-        .btn-glow::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
+        
+        .api-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        .btn-glow:hover::after {
-            opacity: 1;
-        }
+        
         .security-shield {
             position: absolute;
             top: 0;
@@ -156,73 +238,146 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
+        
         .security-shield.active {
             opacity: 1;
             pointer-events: all;
         }
-        .security-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+        
+        .api-modal-content {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .input-with-paste {
+            position: relative;
             display: flex;
+            align-items: center;
+        }
+        
+        .today-hide {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 14px;
             justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
         }
-        .security-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .platforms-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
-            margin-top: 25px;
-        }
-        .platform-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            height: 100%;
+        
+        /* 自定义复选框 */
+        .custom-checkbox {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 15px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            text-align: center;
+            cursor: pointer;
         }
-        .platform-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(99, 102, 241, 0.5);
-            background: rgba(30, 41, 59, 0.9);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
         }
-        .tencent { color: #0084ff; border-left: 4px solid #0084ff; }
-        .iqiyi { color: #1e90ff; border-left: 4px solid #1e90ff; }
-        .bilibili { color: #fb7299; border-left: 4px solid #fb7299; }
-        .tudou { color: #ff4e50; border-left: 4px solid #ff4e50; }
-        .leshi { color: #f857a6; border-left: 4px solid #f857a6; }
-        .mango { color: #ff9966; border-left: 4px solid #ff9966; }
-        .youku { color: #00c6ff; border-left: 4px solid #00c6ff; }
-        .sohu { color: #1a2980; border-left: 4px solid #1a2980; }
-        .pptv { color: #7f00ff; border-left: 4px solid #7f00ff; }
-        .acfun { color: #fd746c; border-left: 4px solid #fd746c; }
-        .cctv { color: #ff0000; border-left: 4px solid #ff0000; }
-        .migu { color: #ff6a00; border-left: 4px solid #ff6a00; }
-        .xigua { color: #ffc400; border-left: 4px solid #ffc400; }
-        .fengxing { color: #00a0e9; border-left: 4px solid #00a0e9; }
-        .iqiyi-intl { color: #00a1d6; border-left: 4px solid #00a1d6; }
-        .douyin { color: #ff0050; border-left: 4px solid #ff0050; }
-        .wasu { color: #ff6a00; border-left: 4px solid #ff6a00; }
-        .film1905 { color: #e74c3c; border-left: 4px solid #e74c3c; }
+        
+        .checkmark {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 2px solid #6366f1;
+            border-radius: 5px;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark {
+            background: #6366f1;
+            border-color: #6366f1;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        /* 页脚美化 */
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        
+        /* 星级评分 */
+        .star-rating {
+            display: flex;
+            margin-top: 8px;
+        }
+        
+        .star {
+            color: #ffc107;
+            font-size: 14px;
+            margin-right: 2px;
+        }
+        
+        .api-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .tag-vip {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        
+        .tag-platform {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .tag-backup {
+            background: rgba(156, 39, 176, 0.2);
+            color: #9C27B0;
+            border: 1px solid rgba(156, 39, 176, 0.3);
+        }
+        
+        .tag-special {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+        
         @media (max-width: 640px) {
             .container {
                 padding-left: 16px;
@@ -234,9 +389,90 @@
             .iframe-sandbox {
                 width: 100% !important;
             }
-            .platforms-container {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            .api-modal-content {
+                max-height: 50vh;
             }
+            .input-with-paste input {
+                padding-right: 100px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 添加使用帮助模态框样式 */
+        .help-modal-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .help-section {
+            margin-bottom: 25px;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .help-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #60a5fa;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        /* 优化API选择器样式 */
+        #api-modal .api-card {
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: 15px;
+        }
+        
+        #api-modal .api-card.selected {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+        }
+        
+        #api-modal .api-info {
+            padding: 15px;
+        }
+        
+        #api-modal .api-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        #api-modal .api-desc {
+            font-size: 0.9rem;
+            color: #b1b5c3;
+            margin-bottom: 10px;
+        }
+        
+        #api-modal .api-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+        
+        #api-modal .confirm-sidebar {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 15px 0 0 15px;
+            padding: 15px 25px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 200;
+        }
+        
+        #api-modal .confirm-btn {
+            width: 100%;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            border-radius: 12px;
         }
     </style>
 </head>
@@ -244,7 +480,7 @@
     <!-- 公告弹窗 -->
     <div id="announcement-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm">
         <div class="modal-center w-[90%] max-w-3xl">
-            <div class="bg-slate-800 rounded-2xl shadow-2xl overflow-hidden glow-card">
+            <div class="glass rounded-2xl shadow-2xl overflow-hidden">
                 <div class="flex justify-between items-center p-6 border-b border-slate-700">
                     <h3 class="text-2xl font-bold text-white flex items-center gap-2">
                         <i class="fas fa-bullhorn text-blue-400"></i>
@@ -254,10 +490,44 @@
                         <i class="fas fa-times text-xl"></i>
                     </button>
                 </div>
-                <div class="p-6 bg-slate-900" id="announcement-content">
-                    <div class="flex justify-center items-center h-32">
-                        <i class="fas fa-spinner fa-spin text-blue-400 text-2xl"></i>
-                        <span class="ml-2 text-slate-300">加载公告中...</span>
+                <div class="p-6" id="announcement-content">
+                    <div class="glass p-6 rounded-xl">
+                        <h4 class="text-xl font-bold text-blue-300 mb-3">全接口解析服务上线</h4>
+                        <p class="text-slate-300 mb-4">VIP影视解析平台拥有专业解析接口，覆盖所有主流平台！</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-800/50">
+                                <i class="fas fa-bolt text-yellow-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-white">接口升级</h4>
+                                    <p class="text-slate-400 text-sm">35个专业解析路线</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-800/50">
+                                <i class="fas fa-hd text-green-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-white">画质提升</h4>
+                                    <p class="text-slate-400 text-sm">支持4K/蓝光/VR专用接口</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-800/50">
+                                <i class="fab fa-android text-green-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-white">平台优化</h4>
+                                    <p class="text-slate-400 text-sm">支持多个平台专用解析接口</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-800/50">
+                                <i class="fas fa-globe text-blue-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-white">网络加速</h4>
+                                    <p class="text-slate-400 text-sm">优化海外线路和全球CDN</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -266,99 +536,476 @@
 
     <!-- API选择弹窗 -->
     <div id="api-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm">
-        <div class="modal-center w-[90%] max-w-4xl">
-            <div class="bg-slate-800 rounded-2xl shadow-2xl overflow-hidden glow-card">
+        <div class="modal-center w-[90%] max-w-6xl">
+            <div class="glass rounded-2xl shadow-2xl overflow-hidden">
                 <div class="flex justify-between items-center p-6 border-b border-slate-700">
                     <h3 class="text-2xl font-bold text-white flex items-center gap-2">
                         <i class="fas fa-plug text-blue-400"></i>
-                        选择解析接口
+                        选择解析路线
                     </h3>
                     <button id="api-modal-close" class="text-slate-400 hover:text-white transition-colors">
                         <i class="fas fa-times text-xl"></i>
                     </button>
                 </div>
-                <div class="p-6 bg-slate-900">
-                    <p class="text-slate-300 mb-6">请选择您要使用的解析接口（当前已选择：<span id="current-api-name" class="text-blue-400 font-medium">常用接口</span>）</p>
+                <div class="p-6 api-modal-content">
+                    <p class="text-slate-300 mb-6">当前已选择：<span id="current-api-name" class="text-blue-400 font-medium">常用路线</span></p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="api-card" data-api="https://jx.playerjy.com/?url=">
-                            <h4 class="font-bold text-lg text-white mb-2">极速接口</h4>
-                            <p class="text-slate-400 text-sm">支持大部分平台，解析速度极快</p>
-                            <div class="mt-3 flex items-center text-xs text-slate-500">
-                                <span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                                稳定性: 优秀
+                        <!-- 常用路线 -->
+                        <div class="glass api-card apple-card selected" data-api-id="1" data-api-name="常用路线">
+                            <div class="p-5 api-info">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="api-name">常用路线</h4>
+                                        <span class="api-tag tag-special">通用</span>
+                                    </div>
+                                    <span class="bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-xs">推荐</span>
+                                </div>
+                                <p class="api-desc">稳定可靠，适合日常使用</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="api-card" data-api="http://jiexi44.qmbo.cn/jiexi/?url=">
-                            <h4 class="font-bold text-lg text-white mb-2">高清接口</h4>
-                            <p class="text-slate-400 text-sm">解析速度慢，支持1080P</p>
-                            <div class="mt-3 flex items-center text-xs text-slate-500">
-                                <span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                                稳定性: 良好
+                        <!-- 极速路线 -->
+                        <div class="glass api-card apple-card" data-api-id="2" data-api-name="极速路线">
+                            <div class="p-5 api-info">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="api-name">极速路线</h4>
+                                        <span class="api-tag tag-special">通用</span>
+                                    </div>
+                                    <span class="bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-xs">推荐</span>
+                                </div>
+                                <p class="api-desc">解析速度快，延迟低，适合对速度要求高的场景</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="api-card" data-api="https://z1.m1907.top/?jx=">
-                            <h4 class="font-bold text-lg text-white mb-2">超清接口</h4>
-                            <p class="text-slate-400 text-sm">支持4K超清，资源丰富</p>
-                            <div class="mt-3 flex items-center text-xs text-slate-500">
-                                <span class="inline-block w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-                                稳定性: 较差
+                        <!-- 高速路线 -->
+                        <div class="glass api-card apple-card" data-api-id="3" data-api-name="高速路线">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">高速路线</h4>
+                                <p class="api-desc">高速解析通道，流畅播放体验</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="api-card selected" data-api="https://yemu.xyz/?url=">
-                            <h4 class="font-bold text-lg text-white mb-2">常用接口</h4>
-                            <p class="text-slate-400 text-sm">默认接口，稳定性好</p>
-                            <div class="mt-3 flex items-center text-xs text-slate-500">
-                                <span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                                稳定性: 优秀
+                        <!-- 超清路线 -->
+                        <div class="glass api-card apple-card" data-api-id="4" data-api-name="超清路线">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">超清路线</h4>
+                                <p class="api-desc">支持超高清画质解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="api-card" data-api="https://jx.77flv.cc/?url=">
-                            <h4 class="font-bold text-lg text-white mb-2">海外接口</h4>
-                            <p class="text-slate-400 text-sm">支持海外访问</p>
-                            <div class="mt-3 flex items-center text-xs text-slate-500">
-                                <span class="inline-block w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-                                稳定性: 中等
+                        <!-- 海外路线 -->
+                        <div class="glass api-card apple-card" data-api-id="5" data-api-name="海外路线">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">海外路线</h4>
+                                <p class="api-desc">海外节点加速，适合境外访问</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="mt-6 flex justify-center">
-                        <button id="confirm-api" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl transition-all">
-                            确认选择
-                        </button>
+                        
+                        <!-- VIP解析1 -->
+                        <div class="glass api-card apple-card" data-api-id="6" data-api-name="VIP解析1">
+                            <div class="p-5 api-info">
+                                <div>
+                                    <h4 class="api-name">VIP解析1</h4>
+                                </div>
+                                <p class="api-desc">VIP专属线路，稳定高速</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 蓝光接口 -->
+                        <div class="glass api-card apple-card" data-api-id="7" data-api-name="蓝光接口">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">蓝光接口</h4>
+                                <p class="api-desc">支持蓝光画质解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 聚合解析 -->
+                        <div class="glass api-card apple-card" data-api-id="8" data-api-name="聚合解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">聚合解析</h4>
+                                <p class="api-desc">多源聚合解析，兼容性强</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 无广告接口 -->
+                        <div class="glass api-card apple-card" data-api-id="9" data-api-name="无广告接口">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">无广告接口</h4>
+                                <p class="api-desc">纯净解析，自动屏蔽广告</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 万能解析 -->
+                        <div class="glass api-card apple-card" data-api-id="10" data-api-name="万能解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">万能解析</h4>
+                                <p class="api-desc">全平台兼容解析方案</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 备用解析1 -->
+                        <div class="glass api-card apple-card" data-api-id="11" data-api-name="备用解析1">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">备用解析1</h4>
+                                <span class="api-tag tag-backup">备用</span>
+                                <p class="api-desc">主线路备用方案</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 备用解析2 -->
+                        <div class="glass api-card apple-card" data-api-id="12" data-api-name="备用解析2">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">备用解析2</h4>
+                                <span class="api-tag tag-backup">备用</span>
+                                <p class="api-desc">次备用解析线路</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 4K专用 -->
+                        <div class="glass api-card apple-card" data-api-id="13" data-api-name="4K专用">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">4K专用</h4>
+                                <span class="api-tag tag-special">超高清</span>
+                                <p class="api-desc">4K超高清专用解析通道</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 移动优化 -->
+                        <div class="glass api-card apple-card" data-api-id="14" data-api-name="移动优化">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">移动优化</h4>
+                                <p class="api-desc">移动设备专属优化</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 抖音元数据解析 -->
+                        <div class="glass api-card apple-card" data-api-id="15" data-api-name="抖音元数据解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">抖音元数据解析</h4>
+                                <span class="api-tag tag-platform">抖音</span>
+                                <p class="api-desc">抖音视频元数据解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Ceacer抖音去水印 -->
+                        <div class="glass api-card apple-card" data-api-id="16" data-api-name="Ceacer抖音去水印">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">Ceacer抖音去水印</h4>
+                                <span class="api-tag tag-platform">抖音</span>
+                                <p class="api-desc">抖音视频去水印解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pear万能解析 -->
+                        <div class="glass api-card apple-card" data-api-id="17" data-api-name="Pear万能解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">Pear万能解析</h4>
+                                <p class="api-desc">全平台万能解析方案</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Vnil无水印解析 -->
+                        <div class="glass api-card apple-card" data-api-id="18" data-api-name="Vnil无水印解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">Vnil无水印解析</h4>
+                                <p class="api-desc">无水印视频解析接口</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- B站解析 -->
+                        <div class="glass api-card apple-card" data-api-id="19" data-api-name="B站解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">B站解析</h4>
+                                <span class="api-tag tag-platform">哔哩哔哩</span>
+                                <p class="api-desc">哔哩哔哩视频专用解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- B站半自动解析 -->
+                        <div class="glass api-card apple-card" data-api-id="20" data-api-name="B站半自动解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">B站半自动解析</h4>
+                                <span class="api-tag tag-platform">哔哩哔哩</span>
+                                <p class="api-desc">哔哩哔哩半自动解析方案</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 芒果专用 -->
+                        <div class="glass api-card apple-card" data-api-id="21" data-api-name="芒果专用">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">芒果专用</h4>
+                                <span class="api-tag tag-platform">芒果TV</span>
+                                <p class="api-desc">芒果TV平台专属解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 腾讯解析 -->
+                        <div class="glass api-card apple-card" data-api-id="22" data-api-name="腾讯解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">腾讯解析</h4>
+                                <span class="api-tag tag-platform">腾讯视频</span>
+                                <p class="api-desc">腾讯视频专用解析接口</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 爱奇艺专线 -->
+                        <div class="glass api-card apple-card" data-api-id="23" data-api-name="爱奇艺专线">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">爱奇艺专线</h4>
+                                <span class="api-tag tag-platform">爱奇艺</span>
+                                <p class="api-desc">爱奇艺平台专属解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 微信视频直链 -->
+                        <div class="glass api-card apple-card" data-api-id="24" data-api-name="微信视频直链">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">微信视频直链</h4>
+                                <span class="api-tag tag-platform">微信</span>
+                                <p class="api-desc">微信公众号视频直链获取</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- YouTube专用 -->
+                        <div class="glass api-card apple-card" data-api-id="25" data-api-name="YouTube专用">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">YouTube专用</h4>
+                                <span class="api-tag tag-platform">YouTube</span>
+                                <p class="api-desc">YouTube视频下载解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 海外加速 -->
+                        <div class="glass api-card apple-card" data-api-id="26" data-api-name="海外加速">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">海外加速</h4>
+                                <p class="api-desc">全球CDN加速，海外专属</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- TikTok国际版 -->
+                        <div class="glass api-card apple-card" data-api-id="27" data-api-name="TikTok国际版">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">TikTok国际版</h4>
+                                <span class="api-tag tag-platform">TikTok</span>
+                                <p class="api-desc">TikTok国际版视频解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Twitter视频解析 -->
+                        <div class="glass api-card apple-card" data-api-id="28" data-api-name="Twitter视频解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">Twitter视频解析</h4>
+                                <span class="api-tag tag-platform">Twitter</span>
+                                <p class="api-desc">Twitter平台视频解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 解析备用01 -->
+                        <div class="glass api-card apple-card" data-api-id="29" data-api-name="解析备用01">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">解析备用01</h4>
+                                <span class="api-tag tag-backup">备用</span>
+                                <p class="api-desc">备用解析线路01</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 解析备用02 -->
+                        <div class="glass api-card apple-card" data-api-id="30" data-api-name="解析备用02">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">解析备用02</h4>
+                                <span class="api-tag tag-backup">备用</span>
+                                <p class="api-desc">备用解析线路02</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 解析备用03 -->
+                        <div class="glass api-card apple-card" data-api-id="31" data-api-name="解析备用03">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">解析备用03</h4>
+                                <span class="api-tag tag-backup">备用</span>
+                                <p class="api-desc">备用解析线路03</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 解析备用04 -->
+                        <div class="glass api-card apple-card" data-api-id="32" data-api-name="解析备用04">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">解析备用04</h4>
+                                <span class="api-tag tag-backup">备用</span>
+                                <p class="api-desc">备用解析线路04</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 解析备用05 -->
+                        <div class="glass api-card apple-card" data-api-id="33" data-api-name="解析备用05">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">解析备用05</h4>
+                                <span class="api-tag tag-backup">备用</span>
+                                <p class="api-desc">备用解析线路05</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 直播流解析 -->
+                        <div class="glass api-card apple-card" data-api-id="34" data-api-name="直播流解析">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">直播流解析</h4>
+                                <span class="api-tag tag-special">直播</span>
+                                <p class="api-desc">实时直播流媒体解析</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- VR视频专用 -->
+                        <div class="glass api-card apple-card" data-api-id="35" data-api-name="VR视频专用">
+                            <div class="p-5 api-info">
+                                <h4 class="api-name">VR视频专用</h4>
+                                <span class="api-tag tag-special">VR</span>
+                                <p class="api-desc">VR全景视频专用解析通道</p>
+                                <div class="api-rating">
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- 侧边固定确认按钮 -->
+        <div class="confirm-sidebar">
+            <button id="confirm-api" class="crystal-btn btn-glow text-white px-8 py-3 rounded-xl transition-all font-medium confirm-btn">
+                确认选择
+            </button>
+        </div>
+        
     </div>
 
     <!-- 主界面 -->
-    <header class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-xl relative overflow-hidden">
+    <header class="relative overflow-hidden py-12">
         <div class="absolute inset-0 z-0">
             <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-blue-500/10 floating-element" style="animation-delay: 0s"></div>
             <div class="absolute bottom-20 right-20 w-60 h-60 rounded-full bg-indigo-500/10 floating-element" style="animation-delay: 1.5s"></div>
             <div class="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-blue-400/10 floating-element" style="animation-delay: 3s"></div>
         </div>
         
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 rounded-2xl">
+                    <div class="gradient-bg p-3 rounded-2xl shadow-lg">
                         <i class="fas fa-film text-white text-3xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-4xl font-bold">VIP影视解析</h1>
-                        <p class="text-blue-200 text-lg mt-1">免费影视 · 纯净观影</p>
+                        <h1 class="text-4xl font-bold text-white">VIP影视解析</h1>
+                        <p class="text-blue-200 text-lg mt-1">影视自由</p>
                     </div>
                 </div>
-                <button id="open-announcement" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-5 py-3 rounded-xl transition-all">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>公告</span>
+                <button id="open-announcement" class="glass flex items-center gap-2 hover:bg-white/10 px-5 py-3 rounded-xl transition-all">
+                    <i class="fas fa-shield-alt text-blue-400"></i>
+                    <span class="text-slate-200">公告</span>
                 </button>
             </div>
         </div>
@@ -366,16 +1013,16 @@
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- 输入区域 -->
-        <div class="bg-slate-800/50 rounded-2xl p-6 mb-8 glow-card">
+        <div class="glass rounded-2xl p-6 mb-8">
             <div class="mb-6">
                 <label class="block text-slate-300 text-sm font-medium mb-2">
                     <i class="fas fa-plug mr-2"></i>当前解析接口
                 </label>
                 <div class="flex gap-4 items-center">
-                    <div class="bg-blue-600/20 border border-blue-500/50 text-blue-300 px-4 py-3 rounded-xl flex-1">
-                        <span id="current-api-display">常用接口</span>
+                    <div class="glass-light border border-blue-500/30 text-blue-300 px-4 py-3 rounded-xl flex-1">
+                        <span id="current-api-display">常用路线 (ID:1)</span>
                     </div>
-                    <button id="change-api" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl transition-all">
+                    <button id="change-api" class="crystal-btn btn-glow text-white px-5 py-3 rounded-xl transition-all">
                         <i class="fas fa-exchange-alt mr-2"></i>更换接口
                     </button>
                 </div>
@@ -386,33 +1033,125 @@
                     <label class="block text-slate-300 text-sm font-medium mb-2">
                         <i class="fas fa-link mr-2"></i>粘贴视频链接
                     </label>
-                    <input type="text" id="video-url" 
-                        class="input-glow w-full p-4 text-lg bg-slate-800 border border-slate-700 text-white rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none transition-all placeholder:text-slate-500"
-                        placeholder="粘贴腾讯、爱奇艺、优酷、芒果TV等视频链接..."
-                        maxlength="2000">
+                    <div class="input-with-paste">
+                        <input type="text" id="video-url" 
+                            class="glass-light input-glow w-full p-4 text-lg text-white rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none transition-all placeholder:text-slate-500"
+                            placeholder="粘贴腾讯、爱奇艺、优酷、芒果TV等视频链接..."
+                            maxlength="2000">
+                        <button id="paste-button" class="glass-light absolute right-2 bg-slate-800/50 text-slate-300 border border-slate-700 px-3 py-2 rounded-lg hover:bg-slate-700/70 transition-all flex items-center gap-2">
+                            <i class="fas fa-paste"></i>
+                            粘贴
+                        </button>
+                    </div>
                 </div>
                 <div class="flex items-end">
-                    <button id="parse-button" class="btn-glow bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-6 py-4 rounded-xl transition-all w-full h-[52px] flex items-center justify-center gap-2 font-medium">
+                    <button id="parse-button" class="crystal-btn btn-glow w-full h-[52px] flex items-center justify-center gap-2 font-medium text-white rounded-xl">
                         <i class="fas fa-play-circle"></i>
-                        解析
+                        解析视频
                     </button>
                 </div>
             </div>
             
             <!-- 功能按钮 -->
             <div class="grid grid-cols-2 gap-4">
-                <button id="fullscreen-button" class="glow-card bg-slate-800 p-4 rounded-xl hover:bg-slate-700/50 transition-all flex items-center justify-center gap-3">
-                    <i class="fas fa-expand text-blue-400"></i>
+                <button id="fullscreen-button" class="glass apple-card p-4 rounded-xl hover:bg-slate-700/20 transition-all flex items-center justify-center gap-3">
+                    <i class="fas fa-expand text-blue-400 text-xl"></i>
                     <span class="text-slate-200 font-medium">全屏模式</span>
                 </button>
-                <button id="help-button" class="glow-card bg-slate-800 p-4 rounded-xl hover:bg-slate-700/50 transition-all flex items-center justify-center gap-3">
-                    <i class="fas fa-book-open text-blue-400"></i>
+                <button id="help-button" class="glass apple-card p-4 rounded-xl hover:bg-slate-700/20 transition-all flex items-center justify-center gap-3">
+                    <i class="fas fa-book-open text-blue-400 text-xl"></i>
                     <span class="text-slate-200 font-medium">使用帮助</span>
                 </button>
             </div>
         </div>
 
-        <!-- 视频容器 -->
+        <!-- 使用帮助弹窗 -->
+        <div id="help-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm">
+            <div class="modal-center w-[90%] max-w-4xl">
+                <div class="glass rounded-2xl shadow-2xl overflow-hidden">
+                    <div class="flex justify-between items-center p-6 border-b border-slate-700">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i class="fas fa-book-open text-blue-400"></i>
+                            使用帮助
+                        </h3>
+                        <button id="help-close" class="text-slate-400 hover:text-white transition-colors">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 help-modal-content">
+                        <div class="help-section">
+                            <div class="help-title">
+                                <i class="fas fa-link"></i>
+                                <h3>如何使用解析功能</h3>
+                            </div>
+                            <ol class="list-decimal pl-6 space-y-3 text-slate-300">
+                                <li>复制您想观看的视频链接（支持腾讯、爱奇艺、优酷等平台）</li>
+                                <li>将链接粘贴到页面的输入框中</li>
+                                <li>点击"解析视频"按钮开始解析</li>
+                                <li>解析成功后视频将自动播放</li>
+                                <li>如需更换解析接口，点击"更换接口"按钮选择其他线路</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="help-section">
+                            <div class="help-title">
+                                <i class="fas fa-plug"></i>
+                                <h3>解析接口说明</h3>
+                            </div>
+                            <ul class="list-disc pl-6 space-y-3 text-slate-300">
+                                <li><span class="text-blue-300">常用路线</span>：通用解析接口，适合大多数视频</li>
+                                <li><span class="text-blue-300">极速路线</span>：解析速度快，适合对速度要求高的用户</li>
+                                <li><span class="text-blue-300">超清路线</span>：支持4K/蓝光画质解析</li>
+                                <li><span class="text-blue-300">平台专用</span>：针对特定平台（如抖音、B站）优化的接口</li>
+                                <li><span class="text-blue-300">备用接口</span>：当主线路不可用时使用</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="help-section">
+                            <div class="help-title">
+                                <i class="fas fa-shield-alt"></i>
+                                <h3>安全提示</h3>
+                            </div>
+                            <ul class="list-disc pl-6 space-y-3 text-slate-300">
+                                <li>请勿点击视频播放器中的广告链接</li>
+                                <li>系统会自动拦截不安全跳转</li>
+                                <li>如遇安全警报，请点击"返回安全播放"按钮</li>
+                                <li>建议使用Chrome或Firefox浏览器以获得最佳体验</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="help-section">
+                            <div class="help-title">
+                                <i class="fas fa-question-circle"></i>
+                                <h3>常见问题</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-medium text-slate-200">Q: 解析失败怎么办？</h4>
+                                    <p class="text-slate-400 pl-5">A: 尝试更换其他解析接口，或检查链接是否正确。</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-slate-200">Q: 视频加载缓慢怎么办？</h4>
+                                    <p class="text-slate-400 pl-5">A: 切换到"极速路线"或"海外路线"接口。</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-slate-200">Q: 如何全屏观看？</h4>
+                                    <p class="text-slate-400 pl-5">A: 点击播放器左上角的全屏按钮，或使用页面上的"全屏模式"按钮。</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 text-center">
+                            <p class="text-slate-400 text-sm">
+                                更多问题请联系: <span class="text-blue-400">mr.woods1692@gmail.com</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 视频容器（加大尺寸） -->
         <div class="video-container relative mb-12">
             <div class="security-badge">
                 <span>安全防护已启用</span>
@@ -420,296 +1159,121 @@
             
             <!-- 安全防护罩 -->
             <div class="security-shield" id="security-shield">
-                <div class="bg-slate-900/90 p-8 rounded-2xl max-w-md">
-                    <i class="fas fa-shield-alt text-red-500 text-5xl mb-4"></i>
+                <div class="glass p-8 rounded-2xl max-w-md">
+                    <i class="fas fa-shield-alt text-blue-500 text-5xl mb-4"></i>
                     <h3 class="text-2xl font-bold text-white mb-2">安全警报</h3>
                     <p class="text-slate-300 mb-4">检测到不安全行为，已阻止页面跳转</p>
                     <p class="text-slate-400 text-sm mb-6">系统已重置播放器到安全状态，请勿点击视频中的广告链接</p>
-                    <button id="reset-player" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl w-full transition-all">
+                    <button id="reset-player" class="crystal-btn btn-glow text-white px-6 py-3 rounded-xl w-full transition-all">
                         返回安全播放
                     </button>
                 </div>
             </div>
             
-            <iframe id="video-frame" class="iframe-sandbox w-full h-[65vh] border-none" src="about:blank"></iframe>
-        </div>
-        
-        <!-- 安全状态指示器 -->
-        <div class="bg-slate-800/50 rounded-2xl p-6 mb-8 glow-card">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fas fa-shield-alt text-blue-400"></i>
-                    安全防护状态
-                </h3>
-                <span class="text-green-400 font-medium">已启用</span>
-            </div>
-            
-            <div class="grid grid-cols-3 gap-4">
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-blue-400 mb-1" id="security-count">0</div>
-                    <div class="text-slate-400 text-sm">拦截威胁</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-green-400 mb-1" id="safe-count">0</div>
-                    <div class="text-slate-400 text-sm">安全播放</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-purple-400 mb-1" id="api-count">5</div>
-                    <div class="text-slate-400 text-sm">解析接口</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 影视平台导航 -->
-        <div class="bg-slate-800/50 rounded-2xl p-6 mb-8 glow-card">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fas fa-compass text-blue-400"></i>
-                    影视平台导航
-                </h3>
-                <span class="text-slate-400 text-sm">点击访问各大影视平台</span>
-            </div>
-            
-            <div class="platforms-container">
-                <!-- 腾讯视频 -->
-                <div class="platform-card tencent" onclick="window.open('https://v.qq.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>腾讯视频</h3>
-                    </div>
-                </div>
-                
-                <!-- 爱奇艺 -->
-                <div class="platform-card iqiyi" onclick="window.open('https://www.iqiyi.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>爱奇艺</h3>
-                    </div>
-                </div>
-                
-                <!-- 哔哩哔哩 -->
-                <div class="platform-card bilibili" onclick="window.open('https://www.bilibili.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>哔哩哔哩</h3>
-                    </div>
-                </div>
-                
-                <!-- 土豆视频 -->
-                <div class="platform-card tudou" onclick="window.open('https://www.tudou.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>土豆视频</h3>
-                    </div>
-                </div>
-                
-                <!-- 乐视视频 -->
-                <div class="platform-card leshi" onclick="window.open('https://www.le.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>乐视视频</h3>
-                    </div>
-                </div>
-                
-                <!-- 芒果TV -->
-                <div class="platform-card mango" onclick="window.open('https://www.mgtv.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>芒果TV</h3>
-                    </div>
-                </div>
-                
-                <!-- 优酷视频 -->
-                <div class="platform-card youku" onclick="window.open('https://www.youku.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>优酷视频</h3>
-                    </div>
-                </div>
-                
-                <!-- 搜狐视频 -->
-                <div class="platform-card sohu" onclick="window.open('https://tv.sohu.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>搜狐视频</h3>
-                    </div>
-                </div>
-                
-                <!-- PPTV -->
-                <div class="platform-card pptv" onclick="window.open('https://www.pptv.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>PPTV视频</h3>
-                    </div>
-                </div>
-                
-                <!-- AcFun -->
-                <div class="platform-card acfun" onclick="window.open('https://www.acfun.cn/', '_blank')">
-                    <div class="platform-info">
-                        <h3>AcFun</h3>
-                    </div>
-                </div>
-                
-                <!-- 央视网 -->
-                <div class="platform-card cctv" onclick="window.open('https://tv.cctv.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>央视网</h3>
-                    </div>
-                </div>
-                
-                <!-- 咪咕视频 -->
-                <div class="platform-card migu" onclick="window.open('https://www.miguvideo.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>咪咕视频</h3>
-                    </div>
-                </div>
-                
-                <!-- 西瓜视频 -->
-                <div class="platform-card xigua" onclick="window.open('https://www.ixigua.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>西瓜视频</h3>
-                    </div>
-                </div>
-                
-                <!-- 风行视频 -->
-                <div class="platform-card fengxing" onclick="window.open('https://www.fun.tv/', '_blank')">
-                    <div class="platform-info">
-                        <h3>风行视频</h3>
-                    </div>
-                </div>
-                
-                <!-- 爱奇艺国际版 -->
-                <div class="platform-card iqiyi-intl" onclick="window.open('https://www.iq.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>爱奇艺国际版</h3>
-                    </div>
-                </div>
-                
-                <!-- 抖音 -->
-                <div class="platform-card douyin" onclick="window.open('https://www.douyin.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>抖音影视</h3>
-                    </div>
-                </div>
-                
-                <!-- 华数TV -->
-                <div class="platform-card wasu" onclick="window.open('https://www.wasu.cn/', '_blank')">
-                    <div class="platform-info">
-                        <h3>华数TV</h3>
-                    </div>
-                </div>
-                
-                <!-- 1905电影网 -->
-                <div class="platform-card film1905" onclick="window.open('https://www.1905.com/', '_blank')">
-                    <div class="platform-info">
-                        <h3>1905电影网</h3>
-                    </div>
-                </div>
-            </div>
+            <iframe id="video-frame" class="iframe-sandbox w-full h-[70vh] border-none" src="about:blank"></iframe>
         </div>
     </main>
 
-    <!-- 使用教程弹窗 -->
-    <div id="help-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm">
-        <div class="modal-center w-[90%] max-w-3xl">
-            <div class="bg-slate-800 rounded-2xl shadow-2xl overflow-hidden glow-card">
-                <div class="flex justify-between items-center p-6 border-b border-slate-700">
-                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <i class="fas fa-book text-blue-400"></i>
-                        使用教程
-                    </h3>
-                    <button id="help-close" class="text-slate-400 hover:text-white transition-colors">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                <div class="p-6 bg-slate-900">
-                    <div class="prose prose-invert max-w-none">
-                        <h3 class="text-blue-400">安全解析指南</h3>
-                        <ol class="list-decimal pl-5 space-y-3 mt-3">
-                            <li>复制您想观看的VIP视频链接（支持腾讯、爱奇艺、优酷、芒果TV等）</li>
-                            <li>将链接粘贴到上方输入框中</li>
-                            <li>根据需要选择合适的解析接口（普通、高速、超清等）</li>
-                            <li>点击"解析"按钮</li>
-                            <li>等待解析完成，视频将在下方播放器中显示</li>
-                        </ol>
-                        
-                        <h3 class="text-blue-400 mt-6">安全防护机制</h3>
-                        <div class="bg-slate-800 p-4 rounded-lg mt-4 border border-blue-500/30">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-sync-alt text-blue-400 mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-blue-300">自动重置</h4>
-                                        <p class="text-slate-400 text-sm">检测到跳转自动恢复播放</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-ban text-red-400 mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-blue-300">广告拦截</h4>
-                                        <p class="text-slate-400 text-sm">阻止广告弹窗和跳转</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-history text-amber-400 mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-blue-300">历史记录</h4>
-                                        <p class="text-slate-400 text-sm">保存安全播放记录</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h3 class="text-blue-400 mt-6">安全提示</h3>
-                        <ul class="list-disc pl-5 space-y-2 mt-3 text-slate-300">
-                            <li>请勿点击视频中的广告链接，这些链接可能包含安全风险</li>
-                            <li>当播放器显示安全警报时，请点击"返回安全播放"按钮</li>
-                            <li>如遇到无法播放情况，请尝试切换解析接口或刷新页面</li>
-                            <li>使用海外接口可以访问更多资源，但速度可能较慢</li>
-                        </ul>
-                    </div>
-                </div>
+    <!-- 安全覆盖层（美化后的开屏弹窗） -->
+    <div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center" id="security-overlay">
+        <div class="glass p-8 rounded-2xl max-w-md text-center" style="width: 90%">
+            <div class="w-24 h-24 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-play-circle text-white text-4xl"></i>
             </div>
-        </div>
-    </div>
-
-    <!-- 安全覆盖层 -->
-    <div class="security-overlay" id="security-overlay">
-        <div class="bg-slate-900 p-8 rounded-2xl max-w-md text-center">
-            <i class="fas fa-shield-alt text-blue-500 text-6xl mb-6"></i>
             <h2 class="text-3xl font-bold text-white mb-3">欢迎使用VIP影视解析</h2>
-            <p class="text-slate-300 mb-6">作者：陈森林</p>
-            <p class="text-slate-300 mb-6">当前：v2.1.0</p>
-            <p class="text-slate-300 mb-6"></p>
-            <div class="flex justify-center gap-4">
-                <button id="close-overlay" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-all">
-                    开始使用
+            <p class="text-slate-300 mb-6">作者：陈森林 && 蓝天工作室</p>
+            <p class="text-slate-300 mb-6">版本：v3.5.0</p>
+            
+            <div class="today-hide">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="hide-today">
+                    <span class="checkmark"></span>
+                    <span class="text-slate-300">今日内不再显示</span>
+                </label>
+            </div>
+            
+            <div class="flex justify-center mt-6">
+                <button id="close-overlay" class="crystal-btn btn-glow text-white px-8 py-3 rounded-xl transition-all">
+                    开始体验
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 页脚 -->
-    <footer class="bg-slate-900/80 backdrop-blur-sm text-white mt-16 py-8 border-t border-slate-800">
+    <!-- 页脚（美化并添加所有链接） -->
+    <footer class="glass backdrop-blur-sm text-white mt-16 py-8">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div>
-                    <div class="flex items-center gap-3 mb-3">
-                        <i class="fas fa-shield-alt text-blue-400 text-2xl"></i>
-                        <h3 class="text-xl font-bold"> VIP影视解析 </h3>
+            <div class="flex flex-col items-center">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center">
+                        <i class="fas fa-play text-white"></i>
                     </div>
-                    <p class="text-slate-500 text-sm">安全防护 · 免费影视 · 纯净体验</p>
+                    <h3 class="text-2xl font-bold"> VIP影视解析 </h3>
                 </div>
                 
-                <div class="flex flex-col items-center md:items-end">
-                    <p class="text-slate-500 text-sm mb-2">
-                        &copy; 2025 VIP影视解析平台
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="https://github.com/MrWoods1692/-VIP-" class="text-slate-400 hover:text-blue-400 transition-colors">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="mailto:mr.woods1692@gmail.com" class="text-slate-400 hover:text-blue-400 transition-colors">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="https://www.mrwoods.top/archives/vipying-shi-jie-xi" class="text-slate-400 hover:text-blue-400 transition-colors">
-                            <i class="fas fa-code"></i>
-                        </a>
+                <div class="footer-grid w-full max-w-4xl">
+                    <div class="glass p-5 rounded-2xl">
+                        <h4 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
+                            <i class="fas fa-link"></i>
+                            网站导航
+                        </h4>
+                        <div class="space-y-3">
+                            <a href="https://wd.mrwoods.ltzy.top/" target="_blank" class="footer-link">
+                                <i class="fas fa-book text-purple-400"></i>
+                                <span>API文档</span>
+                            </a>
+                            <a href="https://bbs.mrwoods.ltzy.top/" target="_blank" class="footer-link">
+                                <i class="fas fa-comments text-green-400"></i>
+                                <span>用户论坛</span>
+                            </a>
+                        </div>
                     </div>
+                    
+                    <div class="glass p-5 rounded-2xl">
+                        <h4 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
+                            <i class="fas fa-download"></i>
+                            下载中心
+                        </h4>
+                        <div class="space-y-3">
+                            <a href="https://www.mrwoods.top/apk/" target="_blank" class="footer-link">
+                                <i class="fab fa-android text-green-500"></i>
+                                <span>安卓客户端</span>
+                            </a>
+                            <a href="https://www.mrwoods.top/crx/" target="_blank" class="footer-link">
+                                <i class="fas fa-puzzle-piece text-blue-400"></i>
+                                <span>浏览器扩展</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="glass p-5 rounded-2xl">
+                        <h4 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
+                            <i class="fas fa-info-circle"></i>
+                            关于我们
+                        </h4>
+                        <div class="space-y-3">
+                            <a href="mailto:mr.woods1692@gmail.com" class="footer-link">
+                                <i class="fas fa-envelope text-yellow-400"></i>
+                                <span>联系我们</span>
+                            </a>
+                            <a href="https://github.com/MrWoods1692/-VIP-" class="footer-link">
+                                <i class="fab fa-github text-gray-300"></i>
+                                <span>GitHub项目</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
+                
+                <div class="mt-8 text-center">
+                    <p class="text-slate-500 text-sm">
+                         <h5>
+                        &copy; 2025 VIP影视解析平台 | 蓝天工作室 | 陈森林
+                        </H5>
+                    </p>
+                </div>
+                
             </div>
         </div>
     </footer>
@@ -719,37 +1283,32 @@
         const SecurityManager = {
             currentValidURL: '',
             safeHistory: [],
-            baseURLs: [
-                {name: "普通接口", url: 'https://jx.playerjy.com/?url='},
-                {name: "高速接口", url: 'http://jiexi44.qmbo.cn/jiexi/?url='},
-                {name: "超清接口", url: 'https://z1.m1907.top/?jx='},
-                {name: "常用接口", url: 'https://yemu.xyz/?url='},
-                {name: "海外接口", url: 'https://jx.77flv.cc/?url='}
-            ],
-            currentAPI: 'https://yemu.xyz/?url=',
-            currentAPIName: '常用接口',
+            baseURL: 'https://api.svip10.top/',
+            currentAPI: { id: 1, name: '常用路线' },
             securityAlertCount: 0,
             safePlayCount: 0,
 
-            setAPI: (url, name) => {
-                SecurityManager.currentAPI = url;
-                SecurityManager.currentAPIName = name;
-                document.getElementById('current-api-display').textContent = name;
+            setAPI: (id, name) => {
+                SecurityManager.currentAPI = { id, name };
+                document.getElementById('current-api-display').textContent = `${name} (ID:${id})`;
                 document.getElementById('current-api-name').textContent = name;
             },
 
             sanitize: (url) => {
                 try {
-                    return SecurityManager.currentAPI + encodeURIComponent(url)
+                    const apiId = SecurityManager.currentAPI.id;
+                    const encodedUrl = encodeURIComponent(url)
                         .replace(/[!'()*]/g, escape)
                         .replace(/%20/g, '+');
+                    
+                    return `${SecurityManager.baseURL}?id=${apiId}&url=${encodedUrl}`;
                 } catch {
                     return null;
                 }
             },
 
             validate: (url) => {
-                return url.startsWith(SecurityManager.currentAPI) && 
+                return url.startsWith(SecurityManager.baseURL) && 
                        SecurityManager.safeHistory.includes(url);
             },
             
@@ -772,14 +1331,6 @@
                 badge.style.backgroundColor = 'rgba(220, 38, 38, 0.2)';
                 badge.style.color = '#ef4444';
                 badge.style.borderColor = 'rgba(220, 38, 38, 0.4)';
-                
-                // 更新安全统计
-                document.getElementById('security-count').textContent = SecurityManager.securityAlertCount;
-            },
-            
-            recordSafePlay: () => {
-                SecurityManager.safePlayCount++;
-                document.getElementById('safe-count').textContent = SecurityManager.safePlayCount;
             }
         };
 
@@ -792,61 +1343,17 @@
             }
         };
 
-        const AnnouncementLoader = {
-            load: async () => {
-                try {
-                    //这里是作者的公告api地址，实际上请替换成自己的，api使用PHP，请见index.php，自行修改，懒得做后台。
-                    const response = await fetch('https://vip.mrwoods.top/api/', {
-                        mode: 'cors', // 明确使用CORS模式
-                        cache: 'no-cache',
-                        headers: {
-                            'Accept': 'text/html'
-                        }
-                    });
-                    
-                    if (!response.ok) {
-                        throw new Error(`连接错误! 状态码: ${response.status}`);
-                    }
-                    
-                    const htmlContent = await response.text();
-                    AnnouncementLoader.displayHtml(htmlContent);
-                } catch (error) {
-                    console.error('公告加载错误:', error);
-                    AnnouncementLoader.displayHtml(`
-                        <div class="text-center py-8">
-                            <i class="fas fa-exclamation-triangle text-yellow-400 text-2xl mb-2"></i>
-                            <p class="text-slate-300">公告加载失败：${error.message}</p>
-                            <p class="text-slate-400 text-sm mt-2">请检查网络连接或稍后再试</p>
-                            <button onclick="AnnouncementLoader.load()" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all">
-                                <i class="fas fa-sync-alt mr-2"></i>重新加载
-                            </button>
-                        </div>
-                    `);
-                }
-            },
-            
-            displayHtml: (html) => {
-                const container = document.getElementById('announcement-content');
-                container.innerHTML = html;
-                
-                // 绑定公告内的按钮事件
-                const refreshBtn = container.querySelector('#refresh-api');
-                if (refreshBtn) {
-                    refreshBtn.addEventListener('click', () => {
-                        showToast('刷新中...', 'success');
-                        // 这里可以添加实际的更新逻辑
-                    });
-                }
-                
-                // 绑定关闭按钮
-                const closeBtn = document.getElementById('announcement-close');
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', () => {
-                        ModalController.toggle('announcement-modal', false);
-                    });
-                }
+        // 粘贴功能
+        document.getElementById('paste-button').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('video-url').value = text;
+                showToast('已粘贴链接', 'success');
+            } catch (err) {
+                showToast('粘贴失败，请手动粘贴', 'error');
+                console.error('粘贴失败:', err);
             }
-        };
+        });
 
         // 事件绑定
         document.getElementById('parse-button').addEventListener('click', () => {
@@ -860,7 +1367,6 @@
             SecurityManager.addToSafeHistory(safeURL);
             document.getElementById('video-frame').src = safeURL;
             showToast('安全解析中...', 'success');
-            SecurityManager.recordSafePlay();
         });
 
         document.getElementById('fullscreen-button').addEventListener('click', () => {
@@ -887,13 +1393,22 @@
 
         document.getElementById('close-overlay').addEventListener('click', () => {
             const overlay = document.getElementById('security-overlay');
-            overlay.classList.remove('active');
+            
+            // 检查是否勾选了"今日内不再弹出"
+            const hideToday = document.getElementById('hide-today').checked;
+            if (hideToday) {
+                // 设置过期时间为今天结束
+                const now = new Date();
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+                localStorage.setItem('hideWelcomeUntil', endOfDay.getTime());
+            }
+            
+            overlay.style.display = 'none';
         });
 
         // 弹窗控制
         document.getElementById('open-announcement').addEventListener('click', () => {
             ModalController.toggle('announcement-modal', true);
-            AnnouncementLoader.load();
         });
         document.getElementById('help-button').addEventListener('click', () => ModalController.toggle('help-modal', true));
         document.getElementById('change-api').addEventListener('click', () => ModalController.toggle('api-modal', true));
@@ -919,11 +1434,11 @@
         document.getElementById('confirm-api').addEventListener('click', () => {
             const selectedCard = document.querySelector('.api-card.selected');
             if (selectedCard) {
-                const apiUrl = selectedCard.dataset.api;
-                const apiName = selectedCard.querySelector('h4').textContent;
-                SecurityManager.setAPI(apiUrl, apiName);
+                const apiId = selectedCard.dataset.apiId;
+                const apiName = selectedCard.dataset.apiName;
+                SecurityManager.setAPI(apiId, apiName);
                 ModalController.toggle('api-modal', false);
-                showToast(`已切换到: ${apiName}`, 'success');
+                showToast(`已切换到: ${apiName} (ID:${apiId})`, 'success');
             }
         });
 
@@ -951,7 +1466,7 @@
         setInterval(() => {
             const frame = document.getElementById('video-frame');
             if (SecurityManager.currentValidURL && 
-                (!frame.src.startsWith(SecurityManager.currentAPI) || 
+                (!frame.src.startsWith(SecurityManager.baseURL) || 
                 !SecurityManager.validate(frame.src))
             ) {
                 SecurityManager.showSecurityAlert();
@@ -959,21 +1474,6 @@
                 console.log('安全检测：已重置为合法地址');
             }
         }, 1000);
-
-        // 防止iframe导航
-        window.addEventListener('message', e => {
-            const frame = document.getElementById('video-frame');
-            if (e.source === frame.contentWindow && !SecurityManager.validate(e.data.url)) {
-                frame.contentWindow.location.replace(SecurityManager.currentValidURL);
-                SecurityManager.showSecurityAlert();
-            }
-        });
-
-        // 移动端适配
-        window.addEventListener('resize', () => {
-            const frame = document.getElementById('video-frame');
-            frame.style.height = window.innerHeight * 0.65 + 'px';
-        });
 
         // 显示通知
         function showToast(message, type = 'error') {
@@ -1029,92 +1529,74 @@
             .animate-fadeOut {
                 animation: fadeOut 0.3s ease forwards;
             }
+            .floating-element {
+                animation: float 6s ease-in-out infinite;
+            }
         `;
         document.head.appendChild(style);
         
+        // 检查是否显示欢迎弹窗
+        function shouldShowWelcome() {
+            const hideUntil = localStorage.getItem('hideWelcomeUntil');
+            if (!hideUntil) return true;
+            
+            const now = new Date().getTime();
+            return now > parseInt(hideUntil);
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
-            const floatingElements = `
-                <div class="absolute -top-10 -left-10 w-32 h-32 rounded-full bg-blue-500/10 floating-element" style="animation-delay: 0s"></div>
-                <div class="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-indigo-500/10 floating-element" style="animation-delay: 1.5s"></div>
-                <div class="absolute top-1/4 right-20 w-20 h-20 rounded-full bg-blue-400/10 floating-element" style="animation-delay: 3s"></div>
-            `;
+            // 检查是否显示欢迎弹窗
+            if (!shouldShowWelcome()) {
+                document.getElementById('security-overlay').style.display = 'none';
+            }
             
-            document.body.insertAdjacentHTML('beforeend', floatingElements);
+            // 添加使用帮助按钮事件
+            document.getElementById('help-button').addEventListener('click', () => {
+                ModalController.toggle('help-modal', true);
+            });
             
-            setTimeout(() => {
-                const overlay = document.getElementById('security-overlay');
-                overlay.classList.add('active');
-            }, 1000);
+            // 添加帮助弹窗关闭事件
+            document.getElementById('help-close').addEventListener('click', () => {
+                ModalController.toggle('help-modal', false);
+            });
+        });
+        
+        // 在关闭欢迎弹窗时添加今日不再提示逻辑
+        document.getElementById('close-overlay').addEventListener('click', () => {
+            const overlay = document.getElementById('security-overlay');
             
-            document.getElementById('api-count').textContent = SecurityManager.baseURLs.length;
+            // 检查是否勾选了"今日内不再弹出"
+            const hideToday = document.getElementById('hide-today').checked;
+            if (hideToday) {
+                // 设置过期时间为今天结束
+                const now = new Date();
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+                localStorage.setItem('hideWelcomeUntil', endOfDay.getTime());
+            }
+            
+            overlay.style.display = 'none';
         });
     </script>
 </body>
 </html>
 
-
 <!---作者：陈森林--->
-<!------解析接口提供：
+<!---合作：蓝天工作室
+<!-----
 
-[
-  // ================= 通用解析接口 =================
-  { "name": "普通接口", "url": "https://jx.playerjy.com/?url=" },
-  { "name": "高速接口", "url": "http://jiexi44.qmbo.cn/jiexi/?url=" },
-  { "name": "超清接口", "url": "https://z1.m1907.top/?jx=" },
-  { "name": "常用接口", "url": "https://yemu.xyz/?url=" },
-  { "name": "海外接口", "url": "https://jx.77flv.cc/?url=" },
-  { "name": "VIP解析1", "url": "https://api.52kdy.cn/?url=" },
-  { "name": "蓝光接口", "url": "https://jx.iztyy.com/svip/?url=" },
-  { "name": "聚合解析", "url": "https://jx.m3u8.tv/jiexi/?url=" },
-  { "name": "无广告接口", "url": "https://jx.ckplayer.vip/jx/?url=" },
-  { "name": "万能解析", "url": "https://jx.playerjtr.com/?url=" },
-  { "name": "备用解析1", "url": "https://jx.bozrc.com:4433/player/?url=" },
-  { "name": "备用解析2", "url": "https://jx.mmkv.cn/tv.php?url=" },
-  { "name": "4K专用", "url": "https://jx.4kyy.top/?url=" },
-  { "name": "移动优化", "url": "https://m3u8.cqfenfa.com/jx/?url=" },
+██████╗ ██╗██████╗     ██╗   ██╗██╗███████╗ ██████╗ ███████╗
+██╔══██╗██║██╔══██╗    ██║   ██║██║██╔════╝██╔═══██╗██╔════╝
+██████╔╝██║██████╔╝    ██║   ██║██║███████╗██║   ██║███████╗
+██╔═══╝ ██║██╔═══╝     ╚██╗ ██╔╝██║╚════██║██║   ██║╚════██║
+██║     ██║██║          ╚████╔╝ ██║███████║╚██████╔╝███████║
+╚═╝     ╚═╝╚═╝           ╚═══╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝
+     ██████╗ ██████╗  ██████╗ ██╗  ██╗
+     ██╔══██╗██╔══██╗██╔═══██╗██║  ██║
+     ██████╔╝██████╔╝██║   ██║███████║
+     ██╔═══╝ ██╔══██╗██║   ██║██╔══██║
+     ██║     ██║  ██║╚██████╔╝██║  ██║
+     ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝
+     
+----->
 
-  // ================= 抖音/TikTok专用 =================
-  { "name": "抖音元数据解析", "url": "https://api.pearktrue.cn/api/video/douyin/?url=" },
-  { "name": "Ceacer抖音去水印", "url": "https://douyin.ceacer.cn/?url=" },
-  { "name": "Vnil抖音批量", "url": "https://api.vnil.cn/api/customparse/getList?appkey=YOUR_KEY&url=" },
-  
-  // ================= 多平台万能解析 =================
-  { "name": "Pear万能解析", "url": "https://api.pearktrue.cn/api/video/api.php?url=" },
-  { "name": "Vnil无水印解析", "url": "https://api.vnil.cn/api/parse?url=" },
-  { "name": "iCodeQ聚合解析", "url": "https://api.icodeq.com/api/wechat_video_public?wxv_" },
-
-  // ================= B站专用 =================
-  { "name": "B站解析", "url": "https://jx.xyflv.cc/?url=" },
-  { "name": "B站直链提取", "url": "https://video-direct-link.vercel.app/bili.mp4?aid={aid}&bvid={bvid}&cid={cid}" },
-  { "name": "B站半自动解析", "url": "https://icodeq-bpi.vercel.app/api/parwix?url=" },
-  
-  // ================= 平台专用接口 =================
-  { "name": "芒果专用", "url": "https://jx.yangtu.top/?url=" },
-  { "name": "腾讯解析", "url": "https://jx.ivito.cn/?url=" },
-  { "name": "爱奇艺专线", "url": "https://jx.aidouer.net/?url=" },
-  { "name": "微信视频直链", "url": "https://api.icodeq.com/api/wechat_video_public?wxv_" },
-  { "name": "微博307协议", "url": "https://api.icodeq.com/api/weibo_307_video?uid={uid}&cursor={cursor}&hd={hd}" },
-  { "name": "网易MV直链", "url": "https://163.icodeq.com/?vid=" },
-  { "name": "网易MV逆向", "url": "https://api.icodeq.com/api/get_163_mv_vercel?vid=" },
-  { "name": "YouTube专用", "url": "https://yt.icodeq.com/dl?url=" },
-  
-  // ================= 海外加速 =================
-  { "name": "海外加速", "url": "https://jx.jsonplayer.com/player/?url=" },
-  { "name": "TikTok国际版", "url": "https://api.intl.icodeq.com/tiktok?url=" },
-  { "name": "Twitter视频解析", "url": "https://tw.icodeq.com/video?tweet_url=" },
-  
-  // ================= 备用接口 =================
-  { "name": "解析备用01", "url": "https://jx.playerjy.cn/jx2/?url=" },
-  { "name": "解析备用02", "url": "https://parse.video/api/?url=" },
-  { "name": "解析备用03", "url": "https://vip.jxplayer.top/?url=" },
-  { "name": "解析备用04", "url": "http://45.136.28.100:88/jiexi/?url=" },
-  { "name": "解析备用05", "url": "https://jx.ergan.top/?url=" },
-  
-  // ================= 特殊场景接口 =================
-  { "name": "直播流解析", "url": "https://live.icodeq.com/m3u8?url=" },
-  { "name": "VR视频专用", "url": "https://vr.parse.video/?equirect=" },
-  { "name": "8K超高清", "url": "https://8k.video/api/parse?token=YOUR_TOKEN&url=" }
-]
-
------->
