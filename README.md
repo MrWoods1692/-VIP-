@@ -1,6 +1,6 @@
 # VIP影视解析项目
 
-### QQ群1044794458 ### [点击加入群聊【影视自由】](https://qm.qq.com/q/yMPoMjxFba)
+### QQ群1044794458[点击加入群聊【影视自由】](https://qm.qq.com/q/yMPoMjxFba)
 
 ### [Web体验1](http://vip.mrwoods.top/)
 
