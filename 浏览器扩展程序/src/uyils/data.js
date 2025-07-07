@@ -1,62 +1,7 @@
 // 解析接口列表
 export const parsingServices = [
     // ================= 通用解析接口 =================
-    { name: "普通接口", url: "https://jx.playerjy.com/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "高速接口", url: "http://jiexi44.qmbo.cn/jiexi/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "超清接口", url: "https://z1.m1907.top/?jx=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "常用接口", url: "https://yemu.xyz/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "海外接口", url: "https://jx.77flv.cc/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "VIP解析1", url: "https://api.52kdy.cn/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "蓝光接口", url: "https://jx.iztyy.com/svip/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "聚合解析", url: "https://jx.m3u8.tv/jiexi/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "无广告接口", url: "https://jx.ckplayer.vip/jx/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "万能解析", url: "https://jx.playerjtr.com/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "备用解析1", url: "https://jx.bozrc.com:4433/player/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "备用解析2", url: "https://jx.mmkv.cn/tv.php?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "4K专用", url: "https://jx.4kyy.top/?url=", type: "通用解析", status: "unknown", latency: 0 },
-    { name: "移动优化", url: "https://m3u8.cqfenfa.com/jx/?url=", type: "通用解析", status: "unknown", latency: 0 },
-  
-    // ================= 抖音/TikTok专用 =================
-    { name: "抖音元数据解析", url: "https://api.pearktrue.cn/api/video/douyin/?url=", type: "抖音/TikTok", status: "unknown", latency: 0 },
-    { name: "Ceacer抖音去水印", url: "https://douyin.ceacer.cn/?url=", type: "抖音/TikTok", status: "unknown", latency: 0 },
-    { name: "Vnil抖音批量", url: "https://api.vnil.cn/api/customparse/getList?appkey=YOUR_KEY&url=", type: "抖音/TikTok", status: "unknown", latency: 0 },
-  
-    // ================= 多平台万能解析 =================
-    { name: "Pear万能解析", url: "https://api.pearktrue.cn/api/video/api.php?url=", type: "多平台万能", status: "unknown", latency: 0 },
-    { name: "Vnil无水印解析", url: "https://api.vnil.cn/api/parse?url=", type: "多平台万能", status: "unknown", latency: 0 },
-    { name: "iCodeQ聚合解析", url: "https://api.icodeq.com/api/wechat_video_public?wxv_", type: "多平台万能", status: "unknown", latency: 0 },
-  
-    // ================= B站专用 =================
-    { name: "B站解析", url: "https://jx.xyflv.cc/?url=", type: "B站专用", status: "unknown", latency: 0 },
-    { name: "B站直链提取", url: "https://video-direct-link.vercel.app/bili.mp4?aid={aid}&bvid={bvid}&cid={cid}", type: "B站专用", status: "unknown", latency: 0 },
-    { name: "B站半自动解析", url: "https://icodeq-bpi.vercel.app/api/parwix?url=", type: "B站专用", status: "unknown", latency: 0 },
-  
-    // ================= 平台专用接口 =================
-    { name: "芒果专用", url: "https://jx.yangtu.top/?url=", type: "平台专用", status: "unknown", latency: 0 },
-    { name: "腾讯解析", url: "https://jx.ivito.cn/?url=", type: "平台专用", status: "unknown", latency: 0 },
-    { name: "爱奇艺专线", url: "https://jx.aidouer.net/?url=", type: "平台专用", status: "unknown", latency: 0 },
-    { name: "微信视频直链", url: "https://api.icodeq.com/api/wechat_video_public?wxv_", type: "平台专用", status: "unknown", latency: 0 },
-    { name: "微博307协议", url: "https://api.icodeq.com/api/weibo_307_video?uid={uid}&cursor={cursor}&hd={hd}", type: "平台专用", status: "unknown", latency: 0 },
-    { name: "网易MV直链", url: "https://163.icodeq.com/?vid=", type: "平台专用", status: "unknown", latency: 0 },
-    { name: "网易MV逆向", url: "https://api.icodeq.com/api/get_163_mv_vercel?vid=", type: "平台专用", status: "unknown", latency: 0 },
-    { name: "YouTube专用", url: "https://yt.icodeq.com/dl?url=", type: "平台专用", status: "unknown", latency: 0 },
-  
-    // ================= 海外加速 =================
-    { name: "海外加速", url: "https://jx.jsonplayer.com/player/?url=", type: "海外加速", status: "unknown", latency: 0 },
-    { name: "TikTok国际版", url: "https://api.intl.icodeq.com/tiktok?url=", type: "海外加速", status: "unknown", latency: 0 },
-    { name: "Twitter视频解析", url: "https://tw.icodeq.com/video?tweet_url=", type: "海外加速", status: "unknown", latency: 0 },
-  
-    // ================= 备用接口 =================
-    { name: "解析备用01", url: "https://jx.playerjy.cn/jx2/?url=", type: "备用接口", status: "unknown", latency: 0 },
-    { name: "解析备用02", url: "https://parse.video/api/?url=", type: "备用接口", status: "unknown", latency: 0 },
-    { name: "解析备用03", url: "https://vip.jxplayer.top/?url=", type: "备用接口", status: "unknown", latency: 0 },
-    { name: "解析备用04", url: "http://45.136.28.100:88/jiexi/?url=", type: "备用接口", status: "unknown", latency: 0 },
-    { name: "解析备用05", url: "https://jx.ergan.top/?url=", type: "备用接口", status: "unknown", latency: 0 },
-  
-    // ================= 特殊场景接口 =================
-    { name: "直播流解析", url: "https://live.icodeq.com/m3u8?url=", type: "特殊场景", status: "unknown", latency: 0 },
-    { name: "VR视频专用", url: "https://vr.parse.video/?equirect=", type: "特殊场景", status: "unknown", latency: 0 },
-    { name: "8K超高清", url: "https://8k.video/api/parse?token=YOUR_TOKEN&url=", type: "特殊场景", status: "unknown", latency: 0 }
+    { name: "接口", url: "https://api.svip10.top/?id=2&url=", type: "通用解析", status: "unknown", latency: 0 }
   ];
   
   // 多语言文本
