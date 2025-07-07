@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        :root {
+            --primary: #4a6cf7;
+            --secondary: #9dbbff;
+            --accent: #6a93ff;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            --text-light: #ffffff;
+            --text-muted: #c0c6d8;
+            --dark-bg: linear-gradient(135deg, #1a1c2a 0%, #2d324d 100%);
+        }
+        
+        body {
+            min-height: 100vh;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+            color: var(--text-light);
+            touch-action: manipulation;
+            perspective: 1000px;
+        }
+        
+        /* 流动玻璃背景层 */
+        .glass-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1), rgba(106, 147, 255, 0.1));
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: -1;
+            animation: flow 20s infinite linear;
+            will-change: background-position;
+        }
+        
+        /* 动态气泡背景 - 优化性能 */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 10s infinite ease-in;
+            will-change: transform, opacity;
+        }
+        
+        /* 玻璃态容器 */
+        .glass-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 80vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), 
+                        inset 0 0 15px rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 10;
+            transform-style: preserve-3d;
+        }
+        
+        /* 主内容区域 */
+        .content {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            transform: translateZ(20px);
+        }
+        
+        /* 404数字动画 - 优化性能 */
+        .error-code {
+            font-size: clamp(100px, 20vw, 180px);
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 4s infinite alternate ease-in-out;
+            line-height: 1.1;
+            will-change: transform, opacity;
+        }
+        
+        .error-title {
+            font-size: clamp(26px, 5vw, 42px);
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        .error-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            margin: 15px auto 0;
+        }
+        
+        .error-message {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--text-muted);
+            max-width: 700px;
+            line-height: 1.7;
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+        
+        /* 导航卡片容器 */
+        .nav-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+            will-change: transform;
+        }
+        
+        /* 玻璃态导航卡片 - 优化性能 */
+        .nav-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2),
+                        inset 0 0 15px rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(10px);
+            will-change: transform;
+        }
+        
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            z-index: 0;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-10px) translateZ(15px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25),
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-card:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+        
+        .nav-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-bottom: 25px;
+            font-size: 36px;
+            color: var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15),
+                        inset 0 0 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            will-change: transform;
+        }
+        
+        .nav-card:hover .nav-icon {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 20px rgba(74, 108, 247, 0.3);
+            color: white;
+        }
+        
+        .nav-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav-description {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.5;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            min-width: 160px;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            will-change: transform;
+        }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 108, 247, 0.4);
+        }
+        
+        .nav-button:hover::before {
+            opacity: 1;
+        }
+        
+        .nav-button i {
+            font-size: 18px;
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            margin-top: 50px;
+            color: #7a8ca0;
+            font-size: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .brand {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .tech {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+        
+        .tech span {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        /* 动画效果 - 优化性能 */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.95;
+                filter: drop-shadow(0 0 5px rgba(106, 147, 255, 0.3));
+            }
+            100% {
+                transform: scale(1.03);
+                opacity: 1;
+                filter: drop-shadow(0 0 15px rgba(106, 147, 255, 0.4));
+            }
+        }
+        
+        @keyframes rise {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes flow {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+        
+        /* 点击特效 */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* 加载进度条 */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.4s ease;
+        }
+        
+        /* 滚动条美化 */
+        .glass-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .glass-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .glass-container::-webkit-scrollbar-thumb {
+            background: rgba(106, 147, 255, 0.3);
+            border-radius: 10px;
+        }
+        
+        .glass-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(106, 147, 255, 0.5);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .glass-container {
+                padding: 30px 20px;
+                border-radius: 28px;
+                min-height: auto;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .content {
+                padding: 30px 10px;
+            }
+            
+            .nav-container {
+                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+            
+            .nav-card {
+                padding: 25px 20px;
+            }
+            
+            .nav-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 32px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+            
+            .footer {
+                margin-top: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .glass-container {
+                padding: 25px 15px;
+                border-radius: 24px;
+                min-height: 90vh;
+            }
+            
+            .content {
+                padding: 20px 5px;
+            }
+            
+            .nav-card {
+                padding: 22px 18px;
+            }
+            
+            .nav-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            .nav-title {
+                font-size: 18px;
+            }
+            
+            .nav-description {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+            
+            .nav-button {
+                padding: 12px 24px;
+                font-size: 15px;
+                min-width: 140px;
+            }
+            
+            .footer {
+                font-size: 14px;
+            }
+            
+            .tech {
+                gap: 10px;
+            }
+            
+            .tech span {
+                padding: 5px 12px;
+            }
+        }
+        
+        /* 性能优化：移动端减少模糊效果 */
+        @media (max-width: 768px) {
+            .glass-container, .glass-layer, .nav-card {
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+        }
+        
+        /* 快速滑动优化 */
+        .scroll-optimized {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="glass-layer scroll-optimized"></div>
+    <div class="bubbles">
+        <!-- 气泡由JS动态生成 -->
+    </div>
+    
+    <div class="glass-container scroll-optimized">
+        <div class="content">
+            <div class="error-code">404</div>
+            <h1 class="error-title">页面未找到</h1>
+            <p class="error-message">您访问的页面不存在或已被移除。可能是URL地址输入错误，或者页面已被删除。请检查URL或使用下面的导航链接。</p>
+            
+            <div class="nav-container">
+                <div class="nav-card scroll-optimized">
+                    <div class="nav-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="nav-title">GitHub 仓库</h3>
+                    <p class="nav-description">访问我们的GitHub项目仓库，查看源代码和项目文档</p>
+                    <a href="https://github.com/MrWoods1692/-VIP-" class="nav-button">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+                
+                <div class="nav-card scroll-optimized">
+                    <div class="nav-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="nav-title">API 文档</h3>
+                    <p class="nav-description">查阅详细的API文档，了解接口使用方法和参数说明</p>
+                    <a href="https://wd.mrwoods.ltzy.top/" class="nav-button">
+                        <i class="fas fa-book"></i> 查看文档
+                    </a>
+                </div>
+                
+                <div class="nav-card scroll-optimized">
+                    <div class="nav-icon">
+                        <i class="fab fa-qq"></i>
+                    </div>
+                    <h3 class="nav-title">QQ 交流群</h3>
+                    <p class="nav-description">加入我们的QQ群，与其他开发者交流经验和问题</p>
+                    <a href="https://qm.qq.com/q/4h1W8mmSpO" class="nav-button">
+                        <i class="fab fa-qq"></i> 加入群聊
+                    </a>
+                </div>
+                
+                <div class="nav-card scroll-optimized">
+                    <div class="nav-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="nav-title">社区论坛</h3>
+                    <p class="nav-description">参与论坛讨论，分享知识，获取帮助和最新资讯</p>
+                    <a href="https://bbs.mrwoods.ltzy.top/" class="nav-button">
+                        <i class="fas fa-comments"></i> 访问论坛
+                    </a>
+                </div>
+                
+                <div class="nav-card scroll-optimized">
+                    <div class="nav-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="nav-title">返回主页</h3>
+                    <p class="nav-description">回到网站主页，浏览更多内容和功能</p>
+                    <a href="https://www.mrwoods.top/" class="nav-button">
+                        <i class="fas fa-home"></i> 前往主页
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p><span class="brand">© 2025 WWW.MrWoods.TOP</span></p>
+                <div class="tech">
+                    <span>Vue3</span>
+                    <span>NodeJs</span>
+                    <span>PHP</span>
+                    <span>C++</span>
+                    <span>Python</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 性能优化：使用requestAnimationFrame
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '30%';
+            
+            // 优化快速滑动性能
+            const optimizedElements = document.querySelectorAll('.scroll-optimized');
+            optimizedElements.forEach(el => {
+                el.style.willChange = 'transform';
+                el.style.transform = 'translateZ(0)';
+                el.style.backfaceVisibility = 'hidden';
+            });
+            
+            // 卡片悬浮动画
+            const cards = document.querySelectorAll('.nav-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) translateZ(15px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) translateZ(10px)';
+                });
+            });
+            
+            // 按钮点击动画
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', function() {
+                    this.style.transform = 'translateY(2px) scale(0.98)';
+                });
+                
+                button.addEventListener('mouseup', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // 点击水波纹效果
+            document.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.className = 'ripple';
+                ripple.style.left = e.clientX + 'px';
+                ripple.style.top = e.clientY + 'px';
+                document.body.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+            
+            // 创建气泡
+            function createBubbles() {
+                const container = document.querySelector('.bubbles');
+                const bubbleCount = 7; // 固定数量减少DOM操作
+                
+                for (let i = 0; i < bubbleCount; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'bubble';
+                    
+                    // 随机大小
+                    const size = Math.random() * 80 + 20;
+                    bubble.style.width = size + 'px';
+                    bubble.style.height = size + 'px';
+                    
+                    // 随机位置
+                    bubble.style.left = Math.random() * 100 + '%';
+                    
+                    // 随机动画时长
+                    const duration = Math.random() * 15 + 10;
+                    bubble.style.animationDuration = duration + 's';
+                    
+                    // 随机延迟
+                    bubble.style.animationDelay = Math.random() * 5 + 's';
+                    
+                    // 随机透明度
+                    bubble.style.opacity = Math.random() * 0.3 + 0.2;
+                    
+                    container.appendChild(bubble);
+                    
+                    // 动画结束后重置位置
+                    bubble.addEventListener('animationend', function() {
+                        this.style.bottom = '-100px';
+                        this.style.opacity = '0.5';
+                        this.style.left = Math.random() * 100 + '%';
+                        this.style.animationDelay = Math.random() * 5 + 's';
+                        this.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                        this.style.opacity = Math.random() * 0.3 + 0.2;
+                    });
+                }
+            }
+            
+            // 页面加载完成
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.opacity = '0';
+                    setTimeout(() => {
+                        progressBar.style.display = 'none';
+                    }, 300);
+                }, 300);
+                
+                // 初始化气泡
+                createBubbles();
+                
+                // 优化滚动性能
+                let lastScrollY = 0;
+                let ticking = false;
+                
+                window.addEventListener('scroll', function() {
+                    lastScrollY = window.scrollY;
+                    
+                    if (!ticking) {
+                        window.requestAnimationFrame(function() {
+                            // 滚动时的优化逻辑
+                            ticking = false;
+                        });
+                        
+                        ticking = true;
+                    }
+                }, { passive: true });
+                
+                // 优化快速滑动时的渲染
+                document.addEventListener('touchmove', function(e) {
+                    // 使用passive:true提高滚动性能
+                }, { passive: true });
+                
+            }, 500);
+        });
+    </script>
+</body>
+</html>
