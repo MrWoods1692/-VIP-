@@ -3,679 +3,393 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>视频解析助手</title>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('https://vip.mrwoods.top/count.php')
-            .then(response => response.text())
-            .then(data => console.log('更新成功'))
-            .catch(error => console.error('服务器请求失败:', error));
-    });
- </script>
+  <title>VIP影视解析插件</title>
+  <link rel="stylesheet" href="popup.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      /* 亮色主题变量 */
-      --primary-color: #4a6bff;
-      --primary-dark: #3a5bff;
-      --secondary-color: #ff6b6b;
-      --accent-color: #6b5bff;
-      --background: #f8f9ff;
-      --card-bg: #ffffff;
-      --text-color: #1a1a2e;
-      --text-secondary: #6c757d;
-      --border-color: #e0e6ff;
-      --success-color: #28a745;
-      --warning-color: #ffc107;
-      --danger-color: #dc3545;
-      --shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-      --icon-filter: none;
-      --online-color: #28a745;
-      --medium-color: #ffc107;
-      --slow-color: #dc3545;
-      --offline-color: #6c757d;
-    }
-
-    .dark-theme {
-      /* 暗色主题变量 */
-      --primary-color: #6b8cff;
-      --primary-dark: #5a7bff;
-      --secondary-color: #ff7b7b;
-      --accent-color: #7b6bff;
-      --background: #121212;
-      --card-bg: #1e1e2e;
-      --text-color: #f0f0ff;
-      --text-secondary: #a0a0b0;
-      --border-color: #2a2a3a;
-      --success-color: #3ab157;
-      --shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      --icon-filter: invert(0.8);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    }
-    
-    body {
-      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-      color: var(--text-color);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      background-color: var(--background);
-    }
-    
-    .container {
-      width: 100%;
-      max-width: 600px;
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      animation: fadeIn 0.6s ease-out;
-      border: 1px solid var(--border-color);
-    }
-    
-    .header {
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      color: white;
-      padding: 25px 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .header::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-      transform: rotate(30deg);
-    }
-    
-    .logo {
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 15px;
-      font-size: 28px;
-      font-weight: bold;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-      position: relative;
-      z-index: 2;
-    }
-    
-    h1 {
-      font-size: 26px;
-      margin-bottom: 5px;
-      letter-spacing: 0.5px;
-      position: relative;
-      z-index: 2;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    .subtitle {
-      font-size: 14px;
-      opacity: 0.9;
-      position: relative;
-      z-index: 2;
-      font-weight: 300;
-    }
-    
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 20px;
-      background: rgba(0,0,0,0.05);
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    .theme-toggle, .lang-toggle, .announcement-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-color);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 5px 10px;
-      border-radius: 8px;
-      transition: all 0.3s;
-    }
-    
-    .theme-toggle:hover, .lang-toggle:hover, .announcement-btn:hover {
-      background: rgba(0,0,0,0.05);
-    }
-    
-    .theme-toggle:active, .lang-toggle:active, .announcement-btn:active {
-      transform: scale(0.95);
-    }
-    
-    .content {
-      padding: 25px;
-    }
-    
-    .section {
-      margin-bottom: 25px;
-    }
-    
-    .section-title {
-      display: flex;
-      align-items: center;
-      font-size: 18px;
-      color: var(--primary-color);
-      margin-bottom: 15px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--border-color);
-    }
-    
-    .section-title i {
-      margin-right: 10px;
-      font-size: 20px;
-    }
-    
-    .url-container {
-      background: var(--background);
-      border-radius: 12px;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--border-color);
-    }
-    
-    .url-display {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: 14px;
-      color: var(--text-secondary);
-      padding: 0 10px;
-    }
-    
-    .copy-btn {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 15px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      box-shadow: 0 4px 8px rgba(74, 107, 255, 0.3);
-    }
-    
-    .copy-btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(74, 107, 255, 0.4);
-    }
-    
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 15px;
-      max-height: 300px;
-      overflow-y: auto;
-      padding: 5px;
-    }
-    
-    .service-card {
-      background: var(--background);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 18px 15px;
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      border-color: var(--primary-color);
-    }
-    
-    .service-card.selected {
-      background: rgba(74, 107, 255, 0.1);
-      border-color: var(--primary-color);
-      box-shadow: 0 5px 15px rgba(92, 107, 192, 0.15);
-    }
-    
-    .service-card.selected::after {
-      content: '✓';
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 22px;
-      height: 22px;
-      background: var(--primary-color);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    
-    .service-name {
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text-color);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .service-name i {
-      font-size: 16px;
-      color: var(--primary-color);
-    }
-    
-    .service-url {
-      font-size: 12px;
-      color: var(--text-secondary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    .random-option {
-      grid-column: span 2;
-      text-align: center;
-      background: rgba(74, 107, 255, 0.05);
-      border: 1px dashed var(--primary-color);
-    }
-    
-    .random-option.selected {
-      background: rgba(74, 107, 255, 0.1);
-      border: 1px solid var(--primary-color);
-    }
-    
-    .action-btn {
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 16px;
-      width: 100%;
-      font-size: 17px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 6px 15px rgba(74, 107, 255, 0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    
-    .action-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(74, 107, 255, 0.5);
-    }
-    
-    .action-btn.disabled {
-      background: linear-gradient(90deg, #9e9e9e, #757575);
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-    
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 25px;
-      gap: 10px;
-    }
-    
-    .nav-btn {
-      flex: 1;
-      background: var(--background);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 15px 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 14px;
-      color: var(--text-color);
-      font-weight: 600;
-    }
-    
-    .nav-btn:hover {
-      background: rgba(74, 107, 255, 0.05);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      border-color: var(--primary-color);
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 20px 15px;
-      background: var(--background);
-      color: var(--text-secondary);
-      font-size: 13px;
-      border-top: 1px solid var(--border-color);
-      line-height: 1.6;
-    }
-    
-    .notification {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 12px 25px;
-      border-radius: 50px;
-      font-size: 14px;
-      z-index: 1000;
-      opacity: 0;
-      transition: opacity 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    
-    .notification.show {
-      opacity: 1;
-    }
-    
-    .notification i {
-      color: var(--success-color);
-    }
-    
-    .announcement-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1001;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    
-    .announcement-modal.show {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .announcement-content {
-      background: var(--card-bg);
-      border-radius: 20px;
-      width: 90%;
-      max-width: 500px;
-      max-height: 80vh;
-      overflow-y: auto;
-      padding: 30px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-      position: relative;
-      border: 1px solid var(--border-color);
-    }
-    
-    .announcement-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      font-size: 24px;
-      color: var(--text-color);
-      cursor: pointer;
-    }
-    
-    .announcement-title {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: var(--primary-color);
-      text-align: center;
-    }
-    
-    .announcement-text {
-      line-height: 1.8;
-      color: var(--text-color);
-    }
-    
-    .announcement-text a {
-      color: var(--primary-color);
-      text-decoration: none;
-    }
-    
-    .announcement-text a:hover {
-      text-decoration: underline;
-    }
-    
-    .announcement-text ul {
-      padding-left: 20px;
-      margin: 15px 0;
-    }
-    
-    .announcement-text li {
-      margin-bottom: 10px;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(74, 107, 255, 0.5); }
-      70% { box-shadow: 0 0 0 12px rgba(74, 107, 255, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(74, 107, 255, 0); }
-    }
-    
-    @media (max-width: 480px) {
-      .service-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .random-option {
-        grid-column: span 1;
-      }
-      
-      .nav-container {
-        flex-direction: column;
-      }
-    }
-    
-    /* 状态指示器 */
-    .status-indicator {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-    
-    .status-online {
-      background-color: var(--online-color);
-    }
-    
-    .status-medium {
-      background-color: var(--medium-color);
-    }
-    
-    .status-slow {
-      background-color: var(--slow-color);
-    }
-    
-    .status-offline {
-      background-color: var(--offline-color);
-    }
-    
-    .service-status {
-      display: flex;
-      align-items: center;
-      font-size: 12px;
-      margin-top: 5px;
-      color: var(--text-secondary);
-    }
-    
-    .service-latency {
-      margin-left: 5px;
-    }
-    
-    .service-type {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 10px;
-      margin-left: 8px;
-      background: rgba(0, 0, 0, 0.1);
-    }
-    
-    .custom-interface {
-      margin-top: 20px;
-      background: var(--background);
-      border-radius: 12px;
-      padding: 15px;
-      border: 1px solid var(--border-color);
-    }
-    
-    .form-group {
-      margin-bottom: 15px;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 14px;
-      color: var(--text-color);
-    }
-    
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      background: var(--card-bg);
-      color: var(--text-color);
-    }
-    
-    .form-actions {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .form-actions button {
-      flex: 1;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    
-    .add-btn {
-      background: var(--primary-color);
-      color: white;
-    }
-    
-    .test-btn {
-      background: var(--success-color);
-      color: white;
-    }
-    
-    .filter-bar {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    
-    .filter-btn {
-      flex: 1;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      background: var(--background);
-      color: var(--text-color);
-      cursor: pointer;
-      font-size: 12px;
-      text-align: center;
-    }
-    
-    .filter-btn.active {
-      background: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
-    }
-    
-    .refresh-btn {
-      background: var(--background);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 8px 15px;
-      color: var(--text-color);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      font-size: 13px;
-      margin-top: 10px;
-      width: 100%;
-    }
-    
-    .refresh-btn:hover {
-      background: rgba(0,0,0,0.05);
-    }
-    
-    .loading-spinner {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    .no-services {
-      text-align: center;
-      padding: 20px;
-      color: var(--text-secondary);
-      grid-column: span 2;
-    }
-  </style>
 </head>
 <body>
-  <div id="app"></div>
-  <script type="module" src="src/main.js"></script>
+  <!-- 头部 -->
+  <div class="header">
+    <div class="logo">
+      <i class="fas fa-film"></i>
+    </div>
+    <div class="title">
+      <h1>VIP影视解析插件</h1>
+      <p>轻松解析各大视频平台VIP内容</p>
+      <p>作者：陈森林</p>
+    </div>
+  </div>
+  
+  <!-- 主内容区 -->
+  <div class="main-content">
+    <!-- URL输入框 -->
+    <div class="glass card">
+      <div class="input-group">
+        <div class="input-label">
+          <i class="fas fa-link"></i>
+          <span>当前页面URL</span>
+        </div>
+        <div class="input-container">
+          <input type="text" id="video-url" class="url-input" placeholder="正在获取当前页面URL..." readonly>
+          <div class="input-actions">
+            <button id="refresh-btn" class="input-btn">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+            <button id="copy-btn" class="input-btn">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- API选择器 -->
+      <div class="input-group">
+        <div class="input-label">
+          <i class="fas fa-plug"></i>
+          <span>解析路线</span>
+        </div>
+        <div class="api-selector" id="api-selector">
+          <div class="api-info">
+            <i class="fas fa-bolt"></i>
+            <div>
+              <div class="api-name">极速路线</div>
+              <div class="api-id">ID:2</div>
+            </div>
+          </div>
+          <div class="change-btn">更换</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 按钮区域 -->
+    <div class="actions">
+      <button id="parse-btn" class="action-btn parse-btn">
+        <i class="fas fa-play-circle"></i>
+        <span>解析视频</span>
+      </button>
+      <button id="settings-btn" class="action-btn settings-btn">
+        <i class="fas fa-cog"></i>
+        <span>设置</span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- API选择弹窗 -->
+  <div class="modal" id="api-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fas fa-plug"></i>
+          <span>选择解析接口</span>
+        </div>
+        <button class="modal-close" id="modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- 极速路线 -->
+        <div class="api-option" data-api-id="2" data-api-name="极速路线">
+          <div class="api-option-header">
+            <div class="api-option-name">极速路线</div>
+            <div class="api-option-badge badge-recommended">推荐</div>
+          </div>
+          <div class="api-option-desc">解析速度快，延迟低，适合对速度要求高的场景</div>
+        </div>
+        
+        <!-- 常用路线 -->
+        <div class="api-option selected" data-api-id="1" data-api-name="常用路线">
+          <div class="api-option-header">
+            <div class="api-option-name">常用路线</div>
+            <div class="api-option-badge badge-recommended">推荐</div>
+          </div>
+          <div class="api-option-desc">稳定可靠，适合日常使用</div>
+        </div>
+        
+        <!-- 高速路线 -->
+        <div class="api-option" data-api-id="3" data-api-name="高速路线">
+          <div class="api-option-header">
+            <div class="api-option-name">高速路线</div>
+          </div>
+          <div class="api-option-desc">高速解析通道，流畅播放体验</div>
+        </div>
+        
+        <!-- 超清路线 -->
+        <div class="api-option" data-api-id="4" data-api-name="超清路线">
+          <div class="api-option-header">
+            <div class="api-option-name">超清路线</div>
+          </div>
+          <div class="api-option-desc">支持超高清画质解析</div>
+        </div>
+        
+        <!-- 海外路线 -->
+        <div class="api-option" data-api-id="5" data-api-name="海外路线">
+          <div class="api-option-header">
+            <div class="api-option-name">海外路线</div>
+          </div>
+          <div class="api-option-desc">海外节点加速，适合境外访问</div>
+        </div>
+        
+        <!-- VIP解析1 -->
+        <div class="api-option" data-api-id="6" data-api-name="VIP解析1">
+          <div class="api-option-header">
+            <div class="api-option-name">VIP解析1</div>
+          </div>
+          <div class="api-option-desc">VIP专属线路，稳定高速</div>
+        </div>
+        
+        <!-- 蓝光接口 -->
+        <div class="api-option" data-api-id="7" data-api-name="蓝光接口">
+          <div class="api-option-header">
+            <div class="api-option-name">蓝光接口</div>
+          </div>
+          <div class="api-option-desc">支持蓝光画质解析</div>
+        </div>
+        
+        <!-- 聚合解析 -->
+        <div class="api-option" data-api-id="8" data-api-name="聚合解析">
+          <div class="api-option-header">
+            <div class="api-option-name">聚合解析</div>
+          </div>
+          <div class="api-option-desc">多源聚合解析，兼容性强</div>
+        </div>
+        
+        <!-- 无广告接口 -->
+        <div class="api-option" data-api-id="9" data-api-name="无广告接口">
+          <div class="api-option-header">
+            <div class="api-option-name">无广告接口</div>
+          </div>
+          <div class="api-option-desc">纯净解析，自动屏蔽广告</div>
+        </div>
+        
+        <!-- 万能解析 -->
+        <div class="api-option" data-api-id="10" data-api-name="万能解析">
+          <div class="api-option-header">
+            <div class="api-option-name">万能解析</div>
+          </div>
+          <div class="api-option-desc">全平台兼容解析方案</div>
+        </div>
+        
+        <!-- 备用解析1 -->
+        <div class="api-option" data-api-id="11" data-api-name="备用解析1">
+          <div class="api-option-header">
+            <div class="api-option-name">备用解析1</div>
+            <div class="api-option-badge badge-backup">备用</div>
+          </div>
+          <div class="api-option-desc">主线路备用方案</div>
+        </div>
+        
+        <!-- 备用解析2 -->
+        <div class="api-option" data-api-id="12" data-api-name="备用解析2">
+          <div class="api-option-header">
+            <div class="api-option-name">备用解析2</div>
+            <div class="api-option-badge badge-backup">备用</div>
+          </div>
+          <div class="api-option-desc">次备用解析线路</div>
+        </div>
+        
+        <!-- 4K专用 -->
+        <div class="api-option" data-api-id="13" data-api-name="4K专用">
+          <div class="api-option-header">
+            <div class="api-option-name">4K专用</div>
+          </div>
+          <div class="api-option-desc">4K超高清专用解析通道</div>
+        </div>
+        
+        <!-- 移动优化 -->
+        <div class="api-option" data-api-id="14" data-api-name="移动优化">
+          <div class="api-option-header">
+            <div class="api-option-name">移动优化</div>
+          </div>
+          <div class="api-option-desc">移动设备专属优化</div>
+        </div>
+        
+        <!-- 抖音元数据解析 -->
+        <div class="api-option" data-api-id="15" data-api-name="抖音元数据解析">
+          <div class="api-option-header">
+            <div class="api-option-name">抖音元数据解析</div>
+          </div>
+          <div class="api-option-desc">抖音视频元数据解析</div>
+        </div>
+        
+        <!-- Ceacer抖音去水印 -->
+        <div class="api-option" data-api-id="16" data-api-name="Ceacer抖音去水印">
+          <div class="api-option-header">
+            <div class="api-option-name">Ceacer抖音去水印</div>
+          </div>
+          <div class="api-option-desc">抖音视频去水印解析</div>
+        </div>
+        
+        <!-- Pear万能解析 -->
+        <div class="api-option" data-api-id="17" data-api-name="Pear万能解析">
+          <div class="api-option-header">
+            <div class="api-option-name">Pear万能解析</div>
+          </div>
+          <div class="api-option-desc">全平台万能解析方案</div>
+        </div>
+        
+        <!-- Vnil无水印解析 -->
+        <div class="api-option" data-api-id="18" data-api-name="Vnil无水印解析">
+          <div class="api-option-header">
+            <div class="api-option-name">Vnil无水印解析</div>
+          </div>
+          <div class="api-option-desc">无水印视频解析接口</div>
+        </div>
+        
+        <!-- B站解析 -->
+        <div class="api-option" data-api-id="19" data-api-name="B站解析">
+          <div class="api-option-header">
+            <div class="api-option-name">B站解析</div>
+          </div>
+          <div class="api-option-desc">哔哩哔哩视频专用解析</div>
+        </div>
+        
+        <!-- B站半自动解析 -->
+        <div class="api-option" data-api-id="20" data-api-name="B站半自动解析">
+          <div class="api-option-header">
+            <div class="api-option-name">B站半自动解析</div>
+          </div>
+          <div class="api-option-desc">哔哩哔哩半自动解析方案</div>
+        </div>
+        
+        <!-- 芒果专用 -->
+        <div class="api-option" data-api-id="21" data-api-name="芒果专用">
+          <div class="api-option-header">
+            <div class="api-option-name">芒果专用</div>
+          </div>
+          <div class="api-option-desc">芒果TV平台专属解析</div>
+        </div>
+        
+        <!-- 腾讯解析 -->
+        <div class="api-option" data-api-id="22" data-api-name="腾讯解析">
+          <div class="api-option-header">
+            <div class="api-option-name">腾讯解析</div>
+          </div>
+          <div class="api-option-desc">腾讯视频专用解析接口</div>
+        </div>
+        
+        <!-- 爱奇艺专线 -->
+        <div class="api-option" data-api-id="23" data-api-name="爱奇艺专线">
+          <div class="api-option-header">
+            <div class="api-option-name">爱奇艺专线</div>
+          </div>
+          <div class="api-option-desc">爱奇艺平台专属解析</div>
+        </div>
+        
+        <!-- 微信视频直链 -->
+        <div class="api-option" data-api-id="24" data-api-name="微信视频直链">
+          <div class="api-option-header">
+            <div class="api-option-name">微信视频直链</div>
+          </div>
+          <div class="api-option-desc">微信公众号视频直链获取</div>
+        </div>
+        
+        <!-- YouTube专用 -->
+        <div class="api-option" data-api-id="25" data-api-name="YouTube专用">
+          <div class="api-option-header">
+            <div class="api-option-name">YouTube专用</div>
+          </div>
+          <div class="api-option-desc">YouTube视频下载解析</div>
+        </div>
+        
+        <!-- 海外加速 -->
+        <div class="api-option" data-api-id="26" data-api-name="海外加速">
+          <div class="api-option-header">
+            <div class="api-option-name">海外加速</div>
+          </div>
+          <div class="api-option-desc">全球CDN加速，海外专属</div>
+        </div>
+        
+        <!-- TikTok国际版 -->
+        <div class="api-option" data-api-id="27" data-api-name="TikTok国际版">
+          <div class="api-option-header">
+            <div class="api-option-name">TikTok国际版</div>
+          </div>
+          <div class="api-option-desc">TikTok国际版视频解析</div>
+        </div>
+        
+        <!-- Twitter视频解析 -->
+        <div class="api-option" data-api-id="28" data-api-name="Twitter视频解析">
+          <div class="api-option-header">
+            <div class="api-option-name">Twitter视频解析</div>
+          </div>
+          <div class="api-option-desc">Twitter平台视频解析</div>
+        </div>
+        
+        <!-- 解析备用01 -->
+        <div class="api-option" data-api-id="29" data-api-name="解析备用01">
+          <div class="api-option-header">
+            <div class="api-option-name">解析备用01</div>
+            <div class="api-option-badge badge-backup">备用</div>
+          </div>
+          <div class="api-option-desc">备用解析线路01</div>
+        </div>
+        
+        <!-- 解析备用02 -->
+        <div class="api-option" data-api-id="30" data-api-name="解析备用02">
+          <div class="api-option-header">
+            <div class="api-option-name">解析备用02</div>
+            <div class="api-option-badge badge-backup">备用</div>
+          </div>
+          <div class="api-option-desc">备用解析线路02</div>
+        </div>
+        
+        <!-- 解析备用03 -->
+        <div class="api-option" data-api-id="31" data-api-name="解析备用03">
+          <div class="api-option-header">
+            <div class="api-option-name">解析备用03</div>
+            <div class="api-option-badge badge-backup">备用</div>
+          </div>
+          <div class="api-option-desc">备用解析线路03</div>
+        </div>
+        
+        <!-- 解析备用04 -->
+        <div class="api-option" data-api-id="32" data-api-name="解析备用04">
+          <div class="api-option-header">
+            <div class="api-option-name">解析备用04</div>
+            <div class="api-option-badge badge-backup">备用</div>
+          </div>
+          <div class="api-option-desc">备用解析线路04</div>
+        </div>
+        
+        <!-- 解析备用05 -->
+        <div class="api-option" data-api-id="33" data-api-name="解析备用05">
+          <div class="api-option-header">
+            <div class="api-option-name">解析备用05</div>
+            <div class="api-option-badge badge-backup">备用</div>
+          </div>
+          <div class="api-option-desc">备用解析线路05</div>
+        </div>
+        
+        <!-- 直播流解析 -->
+        <div class="api-option" data-api-id="34" data-api-name="直播流解析">
+          <div class="api-option-header">
+            <div class="api-option-name">直播流解析</div>
+          </div>
+          <div class="api-option-desc">实时直播流媒体解析</div>
+        </div>
+        
+        <!-- VR视频专用 -->
+        <div class="api-option" data-api-id="35" data-api-name="VR视频专用">
+          <div class="api-option-header">
+            <div class="api-option-name">VR视频专用</div>
+          </div>
+          <div class="api-option-desc">VR全景视频专用解析通道</div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button class="confirm-btn" id="confirm-api">确认选择</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 状态提示 -->
+  <div class="status status-success" id="success-message" style="display: none;">
+    <i class="fas fa-check-circle"></i>
+    <span id="message-text">解析成功！正在新窗口打开视频...</span>
+  </div>
+
+  <script src="popup.js"></script>
 </body>
 </html>
